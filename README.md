@@ -1,7 +1,7 @@
 # WattWise
 Group 1: WattWise
 
-Anushka Verma, Awo Mah, Ethan Kwan, Eric Chou, Mia McDunnah
+Mia McDunnah, Anushka Verma, Awo Mah, Ethan Kwan, Eric Chou
 
 ## Overview
 How might we empower Washington homeowners to better understand and act on the financial savings and environmental benefits of optimizing their utility usage? 
