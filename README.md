@@ -14,7 +14,7 @@ Homeowners in Washington often lack awareness of how everyday utility behaviorsâ
 check 'arch and spec' file
 
 ## Tech Stack
-HTML, CSS, JavaScript
+Languages: HTML, CSS, JavaScript
 
 Dev Tools: FireBase,, React
 
