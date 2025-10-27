@@ -1,5 +1,6 @@
 # WattWise
 Group 1: WattWise
+
 Anushka Verma, Awo Mah, Ethan Kwan, Eric Chou, Mia McDunnah
 
 ## Overview
@@ -11,5 +12,5 @@ check 'arch and spec' file
 
 ## Tech Stack
 HTML, CSS, JavaScript
-Dev Tools: Render, React
+Dev Tools: FireBase,, React
 Library: Bootstrap
