@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/UW-INFO442-AU25/WattWise/issues"
   },
-  "homepage": "https://github.com/UW-INFO442-AU25/WattWise#readme"
+  "homepage": "https://github.com/UW-INFO442-AU25/WattWise#readme",
+  "dependencies": {
+    "react-router-dom": "^7.9.4"
+  }
 }

@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WattWise - Empower Your Home's Energy Future</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2F3A3D;
+            background-color: #E9E4DC;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(233, 228, 220, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #7FAFCA;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #2F3A3D;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #7FAFCA;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 60px;
+            background: linear-gradient(135deg, #7FAFCA 0%, #7BA88F 100%);
+            color: white;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .about.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            color: #7FAFCA;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .team {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .team h3 {
+            color: #7BA88F;
+            margin-bottom: 1rem;
+        }
+
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .team-member {
+            background-color: #E9E4DC;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Information Section */
+        .info-section {
+            padding: 5rem 2rem;
+            background-color: white;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .info-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #7FAFCA;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* Toggle Button */
+        .toggle-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .toggle-switch {
+            background-color: #E9E4DC;
+            border-radius: 50px;
+            padding: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .toggle-btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 50px;
+            background-color: transparent;
+            color: #2F3A3D;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toggle-btn.active {
+            background-color: #7FAFCA;
+            color: white;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .plan-card {
+            background-color: white;
+            border: 3px solid #E9E4DC;
+            border-radius: 15px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .plan-card.featured {
+            border-color: #7BA88F;
+            position: relative;
+        }
+
+        .plan-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .plan-title {
+            font-size: 1.8rem;
+            color: #7FAFCA;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-subtitle {
+            color: #7BA88F;
+            font-size: 0.9rem;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #E9E4DC;
+            display: flex;
+            align-items: center;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            color: #7BA88F;
+            font-weight: bold;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .plan-stat {
+            background-color: #E9E4DC;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #7FAFCA;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #2F3A3D;
+        }
+
+        .data-source {
+            font-size: 0.75rem;
+            color: #666;
+            text-align: center;
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        /* Environmental Impact Section */
+        .impact-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #7BA88F 0%, #7FAFCA 100%);
+            color: white;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .impact-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .impact-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .impact-card:hover {
+            transform: scale(1.05);
+        }
+
+        .impact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .impact-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #D8C26A;
+        }
+
+        .impact-label {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .impact-comparison {
+            font-size: 0.9rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        /* Quiz CTA Section */
+        .quiz-cta {
+            padding: 5rem 2rem;
+            background-color: #E9E4DC;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .quiz-cta.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quiz-cta h2 {
+            font-size: 2.5rem;
+            color: #7FAFCA;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #2F3A3D;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, #7FAFCA 0%, #7BA88F 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(127, 175, 202, 0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-content,
+            .comparison-table,
+            .impact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">WattWise</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#info">Savings</a></li>
+            <li><a href="#impact">Impact</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Empower Your Home's Energy Future</h1>
+        <p>Discover how small changes can lead to significant savings and a healthier planet. Join Washington homeowners making smarter, sustainable choices every day.</p>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>About WattWise</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>WattWise was born from a simple question: How might we empower Washington homeowners to better understand and act on the financial savings and environmental benefits of optimizing their utility usage?</p>
+                <p>We believe that every homeowner deserves access to clear, evidence-based recommendations that make sustainable living both achievable and rewarding. Whether you're a first-time homeowner eager to reduce your carbon footprint or a busy parent looking to lower utility bills while modeling eco-friendly habits for your family, WattWise provides the insights and tools you need to make informed decisions.</p>
+                <p>Our platform transforms complex energy data into actionable steps, helping you understand not just what to change, but why it matters for your wallet and the planet.</p>
+            </div>
+            <div class="team">
+                <h3>Meet Our Team</h3>
+                <p style="margin-bottom: 1rem;">A dedicated group of UW students passionate about sustainability and technology:</p>
+                <div class="team-members">
+                    <span class="team-member">Mia</span>
+                    <span class="team-member">Anushka</span>
+                    <span class="team-member">Awo</span>
+                    <span class="team-member">Ethan</span>
+                    <span class="team-member">Eric</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section id="info" class="info-section">
+        <div class="container">
+            <h2 class="section-title">Understanding Your Savings Potential</h2>
+
+            <div class="toggle-container">
+                <div class="toggle-switch">
+                    <button class="toggle-btn active" onclick="toggleView('renting')">Renting</button>
+                    <button class="toggle-btn" onclick="toggleView('homeowning')">Homeowning</button>
+                </div>
+            </div>
+
+            <div id="comparison-content">
+                <!-- Content will be dynamically updated -->
+            </div>
+
+            <p class="data-source">Data sources: Puget Sound Energy, U.S. Department of Energy, and Washington State utilities data (2024)</p>
+        </div>
+    </section>
+
+    <!-- Environmental Impact Section -->
+    <section id="impact" class="impact-section">
+        <div class="container">
+            <h2 class="section-title">Your Impact on the Environment</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem;">Small changes in your home can create ripple effects across our planet. Here's what the average Washington household can save annually through simple optimizations:</p>
+
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <div class="impact-icon">💨</div>
+                    <div class="impact-value">8,400 lbs</div>
+                    <div class="impact-label">CO₂ Emissions Reduced</div>
+                    <div class="impact-comparison">Equivalent to planting 140 trees or taking your car off the road for 9,300 miles</div>
+                </div>
+
+                <div class="impact-card">
+                    <div class="impact-icon">💧</div>
+                    <div class="impact-value">18,000 gal</div>
+                    <div class="impact-label">Water Saved Annually</div>
+                    <div class="impact-comparison">That's enough to fill 3 dump trucks or take 360 five-minute showers</div>
+                </div>
+
+                <div class="impact-card">
+                    <div class="impact-icon">⚡</div>
+                    <div class="impact-value">3,200 kWh</div>
+                    <div class="impact-label">Energy Conserved</div>
+                    <div class="impact-comparison">Enough electricity to power your refrigerator for 3 years straight</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz CTA Section -->
+    <section id="quiz" class="quiz-cta">
+        <h2>Ready to Discover Your Savings?</h2>
+        <p>Take our quick 5-minute quiz to get a personalized appliance map with prioritized actions tailored to your home. See exactly how much you can save in dollars and kilowatt-hours.</p>
+        <button class="cta-button" onclick="goToQuiz()">Take the Quiz</button>
+    </section>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.about, .info-section, .impact-section, .quiz-cta').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Toggle view function
+        let currentView = 'renting';
+
+        function toggleView(view) {
+            currentView = view;
+
+            // Update button states
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update content
+            updateComparisonContent();
+        }
+
+        function updateComparisonContent() {
+            const content = document.getElementById('comparison-content');
+
+            if (currentView === 'renting') {
+                content.innerHTML = `
+                    <div class="comparison-table">
+                        <div class="plan-card">
+                            <div class="plan-header">
+                                <h3 class="plan-title">Current Habits</h3>
+                                <p class="plan-subtitle">Your typical rental experience</p>
+                            </div>
+                            <ul class="plan-features">
+                                <li>Standard apartment appliances</li>
+                                <li>Limited control over major systems</li>
+                                <li>Traditional lighting throughout</li>
+                                <li>Basic thermostat settings</li>
+                                <li>Standard shower fixtures</li>
+                            </ul>
+                            <div class="plan-stat">
+                                <div class="stat-value">$145/mo</div>
+                                <div class="stat-label">Average Utility Cost</div>
+                            </div>
+                        </div>
+
+                        <div class="plan-card featured">
+                            <div class="plan-header">
+                                <h3 class="plan-title">Optimized Living</h3>
+                                <p class="plan-subtitle">With WattWise recommendations</p>
+                            </div>
+                            <ul class="plan-features">
+                                <li>LED bulb upgrades (renter-friendly)</li>
+                                <li>Smart power strips for phantom loads</li>
+                                <li>Low-flow showerhead installation</li>
+                                <li>Mindful appliance usage patterns</li>
+                                <li>Optimized heating/cooling schedules</li>
+                            </ul>
+                            <div class="plan-stat">
+                                <div class="stat-value">$108/mo</div>
+                                <div class="stat-label">Potential Utility Cost</div>
+                            </div>
+                            <div class="plan-stat">
+                                <div class="stat-value">$444/yr</div>
+                                <div class="stat-label">Annual Savings</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div class="comparison-table">
+                        <div class="plan-card">
+                            <div class="plan-header">
+                                <h3 class="plan-title">Current Setup</h3>
+                                <p class="plan-subtitle">Traditional homeowner approach</p>
+                            </div>
+                            <ul class="plan-features">
+                                <li>Standard HVAC system</li>
+                                <li>Traditional water heater</li>
+                                <li>Mixed lighting (incandescent/CFL)</li>
+                                <li>Older appliances (10+ years)</li>
+                                <li>Manual thermostat control</li>
+                                <li>Standard insulation</li>
+                            </ul>
+                            <div class="plan-stat">
+                                <div class="stat-value">$215/mo</div>
+                                <div class="stat-label">Average Utility Cost</div>
+                            </div>
+                        </div>
+
+                        <div class="plan-card featured">
+                            <div class="plan-header">
+                                <h3 class="plan-title">Smart Home</h3>
+                                <p class="plan-subtitle">With WattWise optimizations</p>
+                            </div>
+                            <ul class="plan-features">
+                                <li>Energy Star certified appliances</li>
+                                <li>LED lighting throughout (100%)</li>
+                                <li>Smart thermostat with scheduling</li>
+                                <li>Tankless or hybrid water heater</li>
+                                <li>Enhanced insulation & weatherproofing</li>
+                                <li>Solar panel consideration (long-term)</li>
+                            </ul>
+                            <div class="plan-stat">
+                                <div class="stat-value">$142/mo</div>
+                                <div class="stat-label">Potential Utility Cost</div>
+                            </div>
+                            <div class="plan-stat">
+                                <div class="stat-value">$876/yr</div>
+                                <div class="stat-label">Annual Savings</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize content
+        updateComparisonContent();
+
+        // Quiz navigation
+        function goToQuiz() {
+            // This would navigate to /quiz route
+            alert('Quiz feature coming soon! This will navigate to the quiz page.');
+            // In a real implementation: window.location.href = '/quiz';
+        }
+    </script>
+</body>
+</html>
