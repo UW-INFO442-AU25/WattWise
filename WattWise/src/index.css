@@ -186,6 +186,13 @@
             text-align: center;
         }
 
+        .section-titleimpact {
+            font-size: 2.5rem;
+            color: #D8C26A;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
         /* Toggle Button */
         .toggle-container {
             display: flex;
