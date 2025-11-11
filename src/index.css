@@ -59,7 +59,11 @@ nav {
     text-align: center;
     padding: 2rem;
     margin-top: 60px;
-    background: linear-gradient(135deg, #7FAFCA 0%, #7BA88F 100%);
+    background-image: linear-gradient(rgba(127, 175, 202, 0.7), rgba(123, 168, 143, 0.7)), url('/neighborhood.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: white;
     position: relative;
 }
@@ -68,6 +72,7 @@ nav {
     font-size: 3.5rem;
     margin-bottom: 1rem;
     animation: fadeInUp 1s ease-out;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero p {
@@ -75,6 +80,7 @@ nav {
     max-width: 700px;
     margin-bottom: 2rem;
     animation: fadeInUp 1s ease-out 0.3s backwards;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .scroll-indicator {
@@ -451,6 +457,10 @@ nav {
     .comparison-table,
     .impact-grid {
         grid-template-columns: 1fr;
+    }
+
+    .hero {
+        background-attachment: scroll;
     }
 
     .hero h1 {
