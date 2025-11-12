@@ -24,7 +24,13 @@ function RentingVsHomeowning() {
               <p><strong>Mysterious spikes and dips</strong> in your utility bills that you can't explain or control.</p>
             </div>
             <div className="highlight-box">
-              <p><strong>Old heating systems</strong> that sound like exhaust engines, but fixing them isn't your call.</p>
+              <p>Paying for your neighbors long showers or someone's AC because the building <strong>doesn't have separate meter </strong></p>
+            </div>
+            <div className="highlight-box">
+              <p>Landlords using <strong>old, inefficient systems</strong> that waste energy (and your money)</p>
+            </div>
+            <div className="highlight-box">
+              <p>No way to see how your daily habits affect your bill until it's <strong>too late</strong></p>
             </div>
           </div>
 
