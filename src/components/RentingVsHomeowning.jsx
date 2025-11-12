@@ -1,34 +1,61 @@
-import { useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function RentingVsHomeowning() {
   const rentingRef = useRef(null);
   const homeowningRef = useRef(null);
-  const boxesRef = useRef([]);
-
-  // Intersection Observer for highlight boxes
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    boxesRef.current.forEach((box) => box && observer.observe(box));
-
-    return () => observer.disconnect();
-  }, []);
+  const carouselWrapperRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const rentingBoxes = [
     "Mysterious spikes and dips in your utility bills that you can't explain or control.",
-    "Paying for your neighbors’ long showers or someone’s AC because the building doesn’t have separate meters.",
+    "Paying for your neighbors' long showers or someone's AC because the building doesn't have separate meters.",
     "Landlords using old, inefficient systems that waste energy (and your money).",
+    "\"Utilities included\" rent that hides higher-than-average rates.",
     "No way to see how your daily habits affect your bill until it's too late."
   ];
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Calculate max index: showing cardsPerView at a time
+  const cardsPerView = isMobile ? 1 : 2;
+  const maxIndex = isMobile 
+    ? Math.max(0, rentingBoxes.length - 1) 
+    : Math.max(0, rentingBoxes.length - cardsPerView); 
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+  };
+
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
+  };
+
+  // Calculate transform value in pixels for accurate positioning with gap
+  const getTransformValue = () => {
+    if (!carouselWrapperRef.current) return 0;
+    const wrapperWidth = carouselWrapperRef.current.offsetWidth;
+    if (isMobile) {
+      // On mobile, move by 100% of wrapper width
+      return currentIndex * wrapperWidth;
+    } else {
+      const remInPixels = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+      return currentIndex * (wrapperWidth / 2 + 0.75 * remInPixels);
+    }
+  };
 
   return (
     <>
@@ -44,17 +71,49 @@ function RentingVsHomeowning() {
             When you're renting, energy feels like something that just <em>happens</em> to you.
           </div>
 
-          <div className="highlight-boxes">
-            {rentingBoxes.map((text, index) => (
-              <div
-                key={index}
-                className="highlight-box"
-                ref={(el) => (boxesRef.current[index] = el)}
-                style={{ transitionDelay: `${index * 0.2}s` }}
+          <div className="carousel-container">
+            <button 
+              className="carousel-button carousel-button-prev" 
+              onClick={prevSlide}
+              aria-label="Previous slide"
+            >
+              ‹
+            </button>
+            
+            <div className="carousel-wrapper" ref={carouselWrapperRef}>
+              <div 
+                className="carousel-track"
+                style={{ transform: `translateX(-${getTransformValue()}px)` }}
               >
-                <p>{text}</p>
+                {rentingBoxes.map((text, index) => (
+                  <div
+                    key={index}
+                    className="highlight-box carousel-slide"
+                  >
+                    <p>{text}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <button 
+              className="carousel-button carousel-button-next" 
+              onClick={nextSlide}
+              aria-label="Next slide"
+            >
+              ›
+            </button>
+
+            <div className="carousel-dots">
+              {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+                <button
+                  key={index}
+                  className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
+                  onClick={() => goToSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
 
           <div className="text-center">
@@ -87,8 +146,7 @@ function RentingVsHomeowning() {
             </p>
           </div>
 
-          <div className="highlight-box text-center"
-            ref={(el) => (boxesRef.current[boxesRef.current.length] = el)}>
+          <div className="highlight-box text-center">
             <p style={{ fontSize: '1.1rem' }}>
               This is your chance to build the environment-conscious home you always wanted.
             </p>
