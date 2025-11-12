@@ -1,131 +1,152 @@
+// import { useState } from 'react'
+// import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+
+// function RentingVsHomeowning() {
+//   const [currentView, setCurrentView] = useState('renting')
+//   const infoRef = useIntersectionObserver()
+
+//   const toggleView = (view) => {
+//     setCurrentView(view)
+//   }
+    
+//   return (
+//     <section id="info" className="info-section" ref={infoRef}>
+//       {/* Renting Section */}
+//       <section className="renting-section" id="renting">
+//         <div className="renting-content">
+//           <div className="text-center mb-5">
+//             <span className="section-icon">🏢</span>
+//             <h2 className="section-title">The Renter's Reality</h2>
+//           </div>
+          
+//           <div className="big-statement text-center">
+//             When you're renting, energy feels like something that just <em>happens</em> to you.
+//           </div>
+
+//           <div className="row g-4 mb-5">
+//             <div className="col-md-6">
+//               <div className="highlight-box">
+//                 <p className="mb-0"><strong>Mysterious spikes and dips</strong> in your utility bills that you can't explain or control.</p>
+//               </div>
+//             </div>
+//             <div className="col-md-6">
+//               <div className="highlight-box">
+//                 <p className="mb-0"><strong>Old heating systems</strong> that sound like exhaust engines, but fixing them isn't your call.</p>
+//               </div>
+//             </div>
+//           </div>
+
+//           <div className="text-center">
+//             <p className="story-text">
+//               You're doing your part, but the infrastructure isn't doing its part for you.
+//             </p>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Homeowning Section */}
+//       <section className="homeowning-section" id="homeowning">
+//         <div className="homeowning-content">
+//           <div className="text-center mb-5">
+//             <span className="section-icon">🏡</span>
+//             <h2 className="section-title">The Homeowner's Opportunity</h2>
+//           </div>
+          
+//           <div className="big-statement text-center mb-5">
+//             But then something changes.<br />
+//             You get the keys.
+//           </div>
+
+//           <div className="text-center mb-5">
+//             <p className="story-text">
+//               Suddenly—<strong>it's your home</strong>. Yours to control. Yours to change.
+//             </p>
+//           </div>
+
+//           <div className="highlight-box text-center">
+//             <p className="mb-0" style={{ fontSize: '1.4rem' }}>
+//               This is your chance to build the environment-conscious home you always wanted.
+//             </p>
+//           </div>
+//         </div>
+//       </section>
+//     </section>
+//   )
+// }
+
+// export default RentingVsHomeowning
+
 import { useState } from 'react'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 
 function RentingVsHomeowning() {
-  const [currentView, setCurrentView] = useState('renting')
-  const infoRef = useIntersectionObserver()
-
-  const toggleView = (view) => {
-    setCurrentView(view)
-  }
+  const rentingRef = useIntersectionObserver()
+  const homeowningRef = useIntersectionObserver()
 
   return (
-    <section id="info" className="info-section" ref={infoRef}>
-      <div className="container">
-        <h2 className="section-title">Understanding Your Savings Potential</h2>
+    <>
+      {/* Renting Section */}
+      <section className="renting-section" id="renting" ref={rentingRef}>
+        <div className="renting-content">
+          <div className="text-center mb-5">
+            <span className="section-icon">🏢</span>
+            <h2 className="section-title">The Renter's Reality</h2>
+          </div>
+          
+          <div className="big-statement text-center">
+            When you're renting, energy feels like something that just <em>happens</em> to you.
+          </div>
 
-        <div className="toggle-container">
-          <div className="toggle-switch">
-            <button 
-              className={`toggle-btn ${currentView === 'renting' ? 'active' : ''}`}
-              onClick={() => toggleView('renting')}
-            >
-              Renting
-            </button>
-            <button 
-              className={`toggle-btn ${currentView === 'homeowning' ? 'active' : ''}`}
-              onClick={() => toggleView('homeowning')}
-            >
-              Homeowning
-            </button>
+          <div className="highlight-boxes">
+            <div className="highlight-box">
+              <p><strong>Mysterious spikes and dips</strong> in your utility bills that you can't explain or control.</p>
+            </div>
+            <div className="highlight-box">
+              <p><strong>Old heating systems</strong> that sound like exhaust engines, but fixing them isn't your call.</p>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <p className="story-text">
+              You're doing your part, but the infrastructure isn't doing its part for you.
+            </p>
           </div>
         </div>
+      </section>
 
-        <div id="comparison-content">
-          {currentView === 'renting' ? (
-            <div className="comparison-table">
-              <div className="plan-card">
-                <div className="plan-header">
-                  <h3 className="plan-title">Current Habits</h3>
-                  <p className="plan-subtitle">Your typical rental experience</p>
-                </div>
-                <ul className="plan-features">
-                  <li>Standard apartment appliances</li>
-                  <li>Limited control over major systems</li>
-                  <li>Traditional lighting throughout</li>
-                  <li>Basic thermostat settings</li>
-                  <li>Standard shower fixtures</li>
-                </ul>
-                <div className="plan-stat">
-                  <div className="stat-value">$145/mo</div>
-                  <div className="stat-label">Average Utility Cost</div>
-                </div>
-              </div>
-
-              <div className="plan-card featured">
-                <div className="plan-header">
-                  <h3 className="plan-title">Optimized Living</h3>
-                  <p className="plan-subtitle">With WattWise recommendations</p>
-                </div>
-                <ul className="plan-features">
-                  <li>LED bulb upgrades (renter-friendly)</li>
-                  <li>Smart power strips for phantom loads</li>
-                  <li>Low-flow showerhead installation</li>
-                  <li>Mindful appliance usage patterns</li>
-                  <li>Optimized heating/cooling schedules</li>
-                </ul>
-                <div className="plan-stat">
-                  <div className="stat-value">$108/mo</div>
-                  <div className="stat-label">Potential Utility Cost</div>
-                </div>
-                <div className="plan-stat">
-                  <div className="stat-value">$444/yr</div>
-                  <div className="stat-label">Annual Savings</div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="comparison-table">
-              <div className="plan-card">
-                <div className="plan-header">
-                  <h3 className="plan-title">Current Setup</h3>
-                  <p className="plan-subtitle">Traditional homeowner approach</p>
-                </div>
-                <ul className="plan-features">
-                  <li>Standard HVAC system</li>
-                  <li>Traditional water heater</li>
-                  <li>Mixed lighting (incandescent/CFL)</li>
-                  <li>Older appliances (10+ years)</li>
-                  <li>Manual thermostat control</li>
-                  <li>Standard insulation</li>
-                </ul>
-                <div className="plan-stat">
-                  <div className="stat-value">$215/mo</div>
-                  <div className="stat-label">Average Utility Cost</div>
-                </div>
-              </div>
-
-              <div className="plan-card featured">
-                <div className="plan-header">
-                  <h3 className="plan-title">Smart Home</h3>
-                  <p className="plan-subtitle">With WattWise optimizations</p>
-                </div>
-                <ul className="plan-features">
-                  <li>Energy Star certified appliances</li>
-                  <li>LED lighting throughout (100%)</li>
-                  <li>Smart thermostat with scheduling</li>
-                  <li>Tankless or hybrid water heater</li>
-                  <li>Enhanced insulation & weatherproofing</li>
-                  <li>Solar panel consideration (long-term)</li>
-                </ul>
-                <div className="plan-stat">
-                  <div className="stat-value">$142/mo</div>
-                  <div className="stat-label">Potential Utility Cost</div>
-                </div>
-                <div className="plan-stat">
-                  <div className="stat-value">$876/yr</div>
-                  <div className="stat-label">Annual Savings</div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <p className="data-source">Data sources: Puget Sound Energy, U.S. Department of Energy, and Washington State utilities data (2024)</p>
+      {/* Journey Connector */}
+      <div className="journey-connector">
+        <div className="journey-arrow">↓</div>
       </div>
-    </section>
+
+      {/* Homeowning Section */}
+      <section className="homeowning-section" id="homeowning" ref={homeowningRef}>
+        <div className="homeowning-content">
+          <div className="text-center mb-5">
+            <span className="section-icon">🏡</span>
+            <h2 className="section-title">The Homeowner's Opportunity</h2>
+          </div>
+          
+          <div className="big-statement text-center mb-5">
+            But then something changes.<br />
+            You get the keys.
+          </div>
+
+          <div className="text-center mb-5">
+            <p className="story-text">
+              Suddenly—<strong>it's your home</strong>. Yours to control. Yours to change.
+            </p>
+          </div>
+
+          <div className="highlight-box text-center">
+            <p style={{ fontSize: '1.1rem' }}>
+              This is your chance to build the environment-conscious home you always wanted.
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
   )
 }
 
 export default RentingVsHomeowning
-

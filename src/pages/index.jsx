@@ -10,7 +10,7 @@ function HomePage() {
     <>
       <Navbar />
       <Welcome />
-      <AboutUs />
+      {/* <AboutUs /> */}
       <RentingVsHomeowning />
       <EnvironmentImpact />
       <QuizLeadIn />
