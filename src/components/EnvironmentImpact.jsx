@@ -6,7 +6,7 @@ function EnvironmentImpact() {
   return (
     <section id="impact" className="impact-section" ref={impactRef}>
       <div className="container">
-        <h2 className="section-titleimpact">Your Impact on the Environment</h2>
+        <h2 className="section-title">Your Impact on the Environment</h2>
         <p style={{ textAlign: 'center', fontSize: '1.2rem', marginBottom: '2rem' }}>
           Small changes in your home can create ripple effects across our planet. Here's what the average Washington household can save annually through simple optimizations:
         </p>

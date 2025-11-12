@@ -12,9 +12,10 @@ function QuizLeadIn() {
 
   return (
     <section id="quiz" className="quiz-cta" ref={quizRef}>
-      <h2>Ready to Discover Your Savings?</h2>
-      <p>Take our quick 5-minute quiz to get a personalized appliance map with prioritized actions tailored to your home. See exactly how much you can save in dollars and kilowatt-hours.</p>
-      <button className="cta-button" onClick={handleQuizClick}>Take the Quiz</button>
+      <h2>Let's Figure This Out Together</h2>
+      <p>Every home is different. Your habits, your appliances, your goals—they're uniquely yours. Take our quick quiz and we'll help you understand exactly where you can make the <strong>biggest difference</strong>, both for your wallet and for the environment.</p>
+      <p>It takes about 5 minutes, and you'll walk away with a clear action plan tailored to your situation.</p>
+      <button className="cta-button" onClick={handleQuizClick}>Tell Us About Your Home!</button>
     </section>
   )
 }

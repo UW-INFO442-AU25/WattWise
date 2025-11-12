@@ -110,19 +110,20 @@ function RentingVsHomeowning() {
             <p className="story-text">
               You're doing your part, but the infrastructure isn't doing its part for you.
             </p>
+            {/* Journey Connector */}
+          <div className="journey-connector">
+            <div className="journey-arrow">↓</div>
+      </div>
           </div>
         </div>
       </section>
 
-      {/* Journey Connector */}
-      <div className="journey-connector">
-        <div className="journey-arrow">↓</div>
-      </div>
+      
 
       {/* Homeowning Section */}
       <section className="homeowning-section" id="homeowning" ref={homeowningRef}>
         <div className="homeowning-content">
-          <div className="text-center mb-5">
+          <div className="text-center">
             <span className="section-icon">🏡</span>
             <h2 className="section-title">The Homeowner's Opportunity</h2>
           </div>

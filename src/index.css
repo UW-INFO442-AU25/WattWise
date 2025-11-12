@@ -166,12 +166,11 @@ nav {
     box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 
-
 /* Renting Section */
 .renting-section {
-    padding: 5rem 0;
+    padding: 3rem 0 5rem 0;
     width: 100%; 
-    background-color: #E9E4DC; 
+    background: linear-gradient(to bottom, #E9E4DC 0%, #E9E4DC 70%, #F2EFE9 100%);
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 0.8s, transform 0.8s;
@@ -268,9 +267,9 @@ nav {
 
 /* Homeowning Section */
 .homeowning-section {
-    padding: 5rem 0;
+    padding: 3rem 0 5rem 0;
     width: 100%;
-    background-color: #f8f9fa;
+    background: linear-gradient(to bottom, #F2EFE9 0%, #F8F6F2 50%, #FDFCFB 100%);
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 0.8s, transform 0.8s;
@@ -324,8 +323,8 @@ nav {
 /* Environmental Impact Section */
 .impact-section {
     padding: 5rem 2rem;
-    background: linear-gradient(135deg, #7BA88F 0%, #7FAFCA 100%);
-    color: white;
+    background: linear-gradient(to bottom, #FDFCFB 0%, #FFFFFF 50%, #FFFFFF 100%);
+    color: #2F3A3D;
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 0.8s, transform 0.8s;
@@ -344,12 +343,13 @@ nav {
 }
 
 .impact-card {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
     padding: 2rem;
     border-radius: 15px;
     text-align: center;
     transition: transform 0.3s;
+    border: 2px solid rgba(127, 175, 202, 0.2);
 }
 
 .impact-card:hover {
@@ -365,26 +365,28 @@ nav {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
-    color: #D8C26A;
+    color: #7BA88F;
 }
 
 .impact-label {
     font-size: 1.1rem;
     margin-bottom: 1rem;
+    color: #2F3A3D;
 }
 
 .impact-comparison {
     font-size: 0.9rem;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(127, 175, 202, 0.15);
     padding: 0.5rem;
     border-radius: 5px;
     margin-top: 1rem;
+    color: #2F3A3D;
 }
 
 /* Quiz CTA Section */
 .quiz-cta {
     padding: 5rem 2rem;
-    background-color: #E9E4DC;
+    background: #FFFFFF;
     text-align: center;
     opacity: 0;
     transform: translateY(50px);
@@ -431,8 +433,8 @@ nav {
 /* Journey Connector - Add between sections */
 .journey-connector {
     text-align: center;
-    padding: 2rem;
-    background: linear-gradient(to bottom, #E9E4DC 0%, #f8f9fa 100%);
+    padding: 1rem 2rem;
+    margin-top: -1rem;
 }
 
 .journey-arrow {
