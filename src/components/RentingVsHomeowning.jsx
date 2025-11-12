@@ -58,7 +58,7 @@ function RentingVsHomeowning() {
           </div>
 
           <div className="text-center">
-            <p className="big-statement text-center">
+            <p className="story-text">
               You're doing your part, but the infrastructure isn't doing its part for you.
             </p>
             <div className="journey-connector">
@@ -87,7 +87,8 @@ function RentingVsHomeowning() {
             </p>
           </div>
 
-          <div className="highlight-box text-center">
+          <div className="highlight-box text-center"
+            ref={(el) => (boxesRef.current[boxesRef.current.length] = el)}>
             <p style={{ fontSize: '1.1rem' }}>
               This is your chance to build the environment-conscious home you always wanted.
             </p>
