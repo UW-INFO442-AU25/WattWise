@@ -100,9 +100,6 @@ nav {
     padding: 5rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s, transform 0.8s;
 }
 
 .about.visible {
@@ -171,9 +168,6 @@ nav {
     padding: 3rem 0 5rem 0;
     width: 100%; 
     background: linear-gradient(to bottom, #E9E4DC 0%, #E9E4DC 70%, #F2EFE9 100%);
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s, transform 0.8s;
 }
 
 .renting-section.visible {
@@ -196,10 +190,6 @@ nav {
     transition: transform 0.3s ease;
 }
 
-.renting-section:hover .section-icon,
-.homeowning-section:hover .section-icon {
-    transform: scale(1.1);
-}
 
 .section-title {
     font-size: 2.5rem;
@@ -270,9 +260,6 @@ nav {
     padding: 3rem 0 5rem 0;
     width: 100%;
     background: linear-gradient(to bottom, #F2EFE9 0%, #F8F6F2 50%, #FDFCFB 100%);
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s, transform 0.8s;
 }
 
 .homeowning-section.visible {
@@ -325,9 +312,6 @@ nav {
     padding: 5rem 2rem;
     background: linear-gradient(to bottom, #FDFCFB 0%, #FFFFFF 50%, #FFFFFF 100%);
     color: #2F3A3D;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s, transform 0.8s;
 }
 
 .impact-section.visible {
@@ -388,9 +372,6 @@ nav {
     padding: 5rem 2rem;
     background: #FFFFFF;
     text-align: center;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s, transform 0.8s;
 }
 
 .quiz-cta.visible {
