@@ -58,7 +58,7 @@ function RentingVsHomeowning() {
           </div>
 
           <div className="text-center">
-            <p className="story-text">
+            <p className="big-statement text-center">
               You're doing your part, but the infrastructure isn't doing its part for you.
             </p>
             <div className="journey-connector">
