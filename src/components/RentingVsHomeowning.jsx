@@ -1,9 +1,34 @@
-import { useState } from 'react'
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { useEffect, useRef } from "react";
 
 function RentingVsHomeowning() {
-  const rentingRef = useIntersectionObserver()
-  const homeowningRef = useIntersectionObserver()
+  const rentingRef = useRef(null);
+  const homeowningRef = useRef(null);
+  const boxesRef = useRef([]);
+
+  // Intersection Observer for highlight boxes
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    boxesRef.current.forEach((box) => box && observer.observe(box));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const rentingBoxes = [
+    "Mysterious spikes and dips in your utility bills that you can't explain or control.",
+    "Paying for your neighbors’ long showers or someone’s AC because the building doesn’t have separate meters.",
+    "Landlords using old, inefficient systems that waste energy (and your money).",
+    "No way to see how your daily habits affect your bill until it's too late."
+  ];
 
   return (
     <>
@@ -14,34 +39,31 @@ function RentingVsHomeowning() {
             <span className="section-icon">🏢</span>
             <h2 className="section-title">The Renter's Reality</h2>
           </div>
-          
+
           <div className="big-statement text-center">
             When you're renting, energy feels like something that just <em>happens</em> to you.
           </div>
 
           <div className="highlight-boxes">
-            <div className="highlight-box">
-              <p><strong>Mysterious spikes and dips</strong> in your utility bills that you can't explain or control.</p>
-            </div>
-            <div className="highlight-box">
-              <p>Paying for your neighbors long showers or someone's AC because the building <strong>doesn't have separate meter </strong></p>
-            </div>
-            <div className="highlight-box">
-              <p>Landlords using <strong>old, inefficient systems</strong> that waste energy (and your money)</p>
-            </div>
-            <div className="highlight-box">
-              <p>No way to see how your daily habits affect your bill until it's <strong>too late</strong></p>
-            </div>
+            {rentingBoxes.map((text, index) => (
+              <div
+                key={index}
+                className="highlight-box"
+                ref={(el) => (boxesRef.current[index] = el)}
+                style={{ transitionDelay: `${index * 0.2}s` }}
+              >
+                <p>{text}</p>
+              </div>
+            ))}
           </div>
 
           <div className="text-center">
             <p className="story-text">
               You're doing your part, but the infrastructure isn't doing its part for you.
             </p>
-            {/* Journey Connector */}
-          <div className="journey-connector">
-            <div className="journey-arrow">↓</div>
-      </div>
+            <div className="journey-connector">
+              <div className="journey-arrow">↓</div>
+            </div>
           </div>
         </div>
       </section>
@@ -53,7 +75,7 @@ function RentingVsHomeowning() {
             <span className="section-icon">🏡</span>
             <h2 className="section-title">The Homeowner's Opportunity</h2>
           </div>
-          
+
           <div className="big-statement text-center mb-5">
             But then something changes.<br />
             You get the keys.
@@ -73,7 +95,7 @@ function RentingVsHomeowning() {
         </div>
       </section>
     </>
-  )
+  );
 }
 
-export default RentingVsHomeowning
+export default RentingVsHomeowning;
