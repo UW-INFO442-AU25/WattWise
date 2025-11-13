@@ -1,7 +1,6 @@
 import Navbar from '../components/Navbar'
 import Welcome from '../components/Welcome'
 import RentingVsHomeowning from '../components/RentingVsHomeowning'
-import EnvironmentImpact from '../components/EnvironmentImpact'
 import QuizLeadIn from '../components/QuizLeadIn'
 
 function HomePage() {
@@ -10,7 +9,6 @@ function HomePage() {
       <Navbar />
       <Welcome />
       <RentingVsHomeowning />
-      <EnvironmentImpact />
       <QuizLeadIn />
     </>
   )
