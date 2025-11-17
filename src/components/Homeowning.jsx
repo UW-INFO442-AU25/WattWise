@@ -19,7 +19,7 @@ function Homeowning() {
         </div>
 
         <div className="homeowning-callout">
-          <p>This is your chance to build the environment-conscious home you always wanted.</p>
+          <p>This is your chance to build the environment-conscious home you always wanted. As a Washington homeowner, you have access to some of the cleanest, most affordable electricity in the nation—now it's time to make the most of it.</p>
         </div>
 
         <div className="text-center">

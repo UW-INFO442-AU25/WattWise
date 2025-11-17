@@ -20,7 +20,7 @@ function QuizLeadIn() {
         both for your wallet and for the environment.
       </p>
       <p>
-        It takes about 5 minutes, and you'll walk away with a clear action plan tailored to your situation.
+        It takes about 5 minutes, and you'll walk away with a clear action plan tailored to your Washington home—whether you're dealing with our mild winters, managing heating costs, or optimizing for our moderate summers.
       </p>
       <button className="cta-button" onClick={handleQuizClick}>
         Tell Us About Your Home!

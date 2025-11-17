@@ -455,7 +455,7 @@ nav {
 .renting-section {
     padding: 4rem 0 2.5rem 0;
     width: 100%; 
-    background: linear-gradient(to bottom, #F5F1EB 0%, #F0EBE3 70%, #EBE6DD 100%);
+    background: linear-gradient(to bottom, #DDD4C7 0%, #E3DCD0 30%, #E8E1D6 60%, #EBE6DD 100%);
 }
 
 .renting-section.visible {

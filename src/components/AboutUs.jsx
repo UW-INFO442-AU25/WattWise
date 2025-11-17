@@ -43,8 +43,8 @@ function AboutUs() {
       <div className="about-content">
         <div className="about-text">
           <p className="about-question">How might we empower Washington homeowners to better understand and act on the financial savings and environmental benefits of optimizing their utility usage?</p>
-          <p>WattWise was born from this question, addressing <strong>UN Sustainable Development Goal 12: Responsible Consumption and Production</strong>. We focus on the lack of awareness around everyday household practices and their environmental and financial impact.</p>
-          <p>Many homeowners don't realize that leaving appliances plugged in or running inefficient lightbulbs can rack up costs while wasting energy. By educating people on how simple fixes—like unplugging appliances or switching to eco-friendly alternatives—can save money and reduce environmental impact, we motivate people to shift their daily practices.</p>
+          <p>WattWise was born from this question, addressing <strong>UN Sustainable Development Goal 12: Responsible Consumption and Production</strong>. We focus on the lack of awareness around everyday household practices and their environmental and financial impact—especially for new homeowners across Washington state.</p>
+          <p>Many Washington homeowners don't realize that leaving appliances plugged in or running inefficient lightbulbs can rack up costs while wasting energy. Despite having access to some of the nation's cleanest and most affordable electricity, simple inefficiencies can still add up. By educating people on how simple fixes—like unplugging appliances or switching to eco-friendly alternatives—can save money and reduce environmental impact, we motivate people to shift their daily practices and take full advantage of Washington's clean energy advantage.</p>
         </div>
 
         <div className="sdg-highlight">
