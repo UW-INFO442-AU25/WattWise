@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar'
 import Welcome from '../components/Welcome'
-import RentingVsHomeowning from '../components/RentingVsHomeowning'
+import Renting from '../components/Renting'
+import Homeowning from '../components/Homeowning'
 import QuizLeadIn from '../components/QuizLeadIn'
 
 function HomePage() {
@@ -8,7 +9,8 @@ function HomePage() {
     <>
       <Navbar />
       <Welcome />
-      <RentingVsHomeowning />
+      <Renting />
+      <Homeowning />
       <QuizLeadIn />
     </>
   )

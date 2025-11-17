@@ -432,7 +432,7 @@ nav {
 .homeowning-section {
     padding: 2rem 0 2.5rem 0;
     width: 100%;
-    background: linear-gradient(to bottom, #EBE6DD 0%, #F0EBE3 50%, #F5F1EB 100%);
+    background: linear-gradient(to bottom, #EBE6DD 0%, #F0EBE3 50%, #F5F1EB 70%, #FBF9F7 90%, #FFFFFF 100%);
 }
 
 .homeowning-section.visible {
