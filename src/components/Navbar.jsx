@@ -18,7 +18,7 @@ function Navbar() {
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
-        <li><a href="#info" onClick={(e) => handleNavClick(e, 'info')}>Savings</a></li>
+        <li><Link to="/profile">My Profile</Link></li>
         <li><Link to="/impact">Impact</Link></li>
         <li><Link to="/quiz">Quiz</Link></li>
         {/* <li><a href="#quiz" onClick={(e) => handleNavClick(e, 'quiz')}>Quiz</a></li> */}
