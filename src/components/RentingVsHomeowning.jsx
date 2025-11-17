@@ -146,10 +146,14 @@ function RentingVsHomeowning() {
             </p>
           </div>
 
-          <div className="highlight-box text-center">
-            <p style={{ fontSize: '1.1rem' }}>
-              This is your chance to build the environment-conscious home you always wanted.
-            </p>
+          <div className="homeowning-callout">
+            <p>This is your chance to build the environment-conscious home you always wanted.</p>
+          </div>
+
+          <div className="text-center">
+            <div className="journey-connector">
+              <div className="journey-arrow">↓</div>
+            </div>
           </div>
         </div>
       </section>
