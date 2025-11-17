@@ -8,9 +8,12 @@ import QuizResultsPage from './pages/QuizResultsPage'
 import MyProfilePage from './pages/MyProfilePage'
 import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
+import { useScrollToTop } from './hooks/useScrollToTop'
 
 
 function App() {
+  useScrollToTop()
+
   return (
     <>
       <Routes>
