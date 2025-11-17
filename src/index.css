@@ -157,14 +157,53 @@ nav {
 
 /* About Section */
 .about {
-    padding: 5rem 2rem;
-    max-width: 1200px;
+    padding: 0;
+    max-width: 100%;
     margin: 0 auto;
 }
 
 .about.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+.about-header {
+    position: relative;
+    height: 400px;
+    background-image: url('/neighborhood.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.about-header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(245, 241, 235, 0.85) 0%, rgba(245, 241, 235, 0.75) 100%);
+    backdrop-filter: blur(2px);
+}
+
+.about-title {
+    font-size: 3.5rem;
+    color: #5B8FA8;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .about h2 {
@@ -181,6 +220,10 @@ nav {
     grid-template-columns: 1fr;
     gap: 3rem;
     margin-bottom: 3rem;
+    padding: 0 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .about-text {
@@ -189,13 +232,96 @@ nav {
     text-align: center;
 }
 
-.about-question {
-    font-size: 1.4rem;
+.about-question-container {
+    margin-bottom: 3rem;
+}
+
+.about-question-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #5B8FA8;
+    margin-bottom: 2rem;
+    text-align: center;
+    letter-spacing: -0.3px;
+}
+
+.question-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.question-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 241, 235, 0.95) 100%);
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid rgba(107, 163, 199, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.question-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #6BA3C7 0%, #7AB89A 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.question-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(107, 163, 199, 0.15);
+    border-color: rgba(107, 163, 199, 0.3);
+}
+
+.question-card:hover::before {
+    transform: scaleX(1);
+}
+
+.question-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+}
+
+.question-card:nth-child(2) .question-icon {
+    animation-delay: 0.5s;
+}
+
+.question-card:nth-child(3) .question-icon {
+    animation-delay: 1s;
+}
+
+.question-card h4 {
+    font-size: 1.3rem;
     font-weight: 600;
     color: #5B8FA8;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.question-card p {
+    font-size: 1rem;
+    color: #4A5A5E;
     line-height: 1.6;
-    font-style: italic;
+    margin: 0;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .about-text strong {
@@ -903,8 +1029,30 @@ nav {
         font-size: 2rem;
     }
 
-    .about-question {
-        font-size: 1.2rem;
+    .about-header {
+        height: 300px;
+    }
+
+    .about-title {
+        font-size: 2.5rem;
+        padding: 0.75rem 1.5rem;
+    }
+
+    .about-question-title {
+        font-size: 1.5rem;
+    }
+
+    .question-cards {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .question-card {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .question-icon {
+        font-size: 2.5rem;
     }
 
     .sdg-highlight {

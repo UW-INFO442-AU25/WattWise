@@ -39,10 +39,32 @@ function AboutUs() {
 
   return (
     <section id="about" className="about" ref={aboutRef}>
-      <h2>About WattWise</h2>
+      <div className="about-header">
+        <div className="about-header-overlay"></div>
+        <h2 className="about-title">About WattWise</h2>
+      </div>
       <div className="about-content">
         <div className="about-text">
-          <p className="about-question">How might we empower Washington homeowners to better understand and act on the financial savings and environmental benefits of optimizing their utility usage?</p>
+          <div className="about-question-container">
+            <h3 className="about-question-title">How might we empower Washington homeowners?</h3>
+            <div className="question-cards">
+              <div className="question-card">
+                <div className="question-icon">💰</div>
+                <h4>Financial Savings</h4>
+                <p>Better understand utility costs and optimize spending</p>
+              </div>
+              <div className="question-card">
+                <div className="question-icon">🌱</div>
+                <h4>Environmental Benefits</h4>
+                <p>Reduce energy waste and environmental impact</p>
+              </div>
+              <div className="question-card">
+                <div className="question-icon">⚡</div>
+                <h4>Optimize Usage</h4>
+                <p>Make informed decisions about utility consumption</p>
+              </div>
+            </div>
+          </div>
           <p>WattWise was born from this question, addressing <strong>UN Sustainable Development Goal 12: Responsible Consumption and Production</strong>. We focus on the lack of awareness around everyday household practices and their environmental and financial impact—especially for new homeowners across Washington state.</p>
           <p>Many Washington homeowners don't realize that leaving appliances plugged in or running inefficient lightbulbs can rack up costs while wasting energy. Despite having access to some of the nation's cleanest and most affordable electricity, simple inefficiencies can still add up. By educating people on how simple fixes—like unplugging appliances or switching to eco-friendly alternatives—can save money and reduce environmental impact, we motivate people to shift their daily practices and take full advantage of Washington's clean energy advantage.</p>
         </div>
