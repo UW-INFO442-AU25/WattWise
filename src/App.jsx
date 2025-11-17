@@ -1,18 +1,21 @@
+import { Route, Routes } from 'react-router-dom'
 import './index.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import HomePage from './pages/index'
 import AboutPage from './pages/About'
 import ImpactPage from './pages/Impact'
+import HomePage from './pages/index'
+import QuizPage from './pages/QuizPage'
+
 
 function App() {
   return (
-    <Router>
+    <>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/impact" element={<ImpactPage />} />
+        <Route path="/quiz" element={<QuizPage />} />
       </Routes>
-    </Router>
+    </>
   )
 }
 
