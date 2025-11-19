@@ -851,9 +851,9 @@ nav {
     position: relative;
     height: 40vh;
     min-height: 300px;
-    background-image: linear-gradient(rgba(127, 175, 202, 0.7), rgba(123, 168, 143, 0.7)), url('/insideHome.png');
+    background-image: linear-gradient(rgba(127, 175, 202, 0.7), rgba(123, 168, 143, 0.7)), url('/impactEnvironment.png');
     background-size: cover;
-    background-position: bottom;
+    background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
     display: flex;
