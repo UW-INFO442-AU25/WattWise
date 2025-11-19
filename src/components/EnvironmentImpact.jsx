@@ -1,5 +1,4 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
-import SustainableHomeSimulator from './SustainableHomeSimulator'
 
 function EnvironmentImpact() {
   const impactRef = useIntersectionObserver()
@@ -33,17 +32,6 @@ function EnvironmentImpact() {
             <div className="impact-label">Energy Conserved</div>
             <div className="impact-comparison">Enough electricity to power your refrigerator for 3 years straight</div>
           </div>
-        </div>
-
-        {/* Interactive Sustainable Home Simulator */}
-        <div style={{ marginTop: '4rem' }}>
-          <h2 className="section-title" style={{ marginBottom: '1rem' }}>
-            Interactive Home Simulator
-          </h2>
-          <p style={{ textAlign: 'center', fontSize: '1.1rem', marginBottom: '2rem', color: '#4A5A5E' }}>
-            Drag and drop sustainable upgrades onto appliances in your home to see how each change impacts your environmental footprint.
-          </p>
-          <SustainableHomeSimulator />
         </div>
       </div>
     </section>
