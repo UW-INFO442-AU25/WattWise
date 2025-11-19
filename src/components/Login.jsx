@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase'
+import { saveUserProfile } from '../services/userService'
 
 function Login() {
   const navigate = useNavigate()
@@ -61,7 +62,16 @@ function Login() {
     setGoogleLoading(true)
 
     try {
-      await signInWithPopup(auth, googleProvider)
+      const userCredential = await signInWithPopup(auth, googleProvider)
+      const user = userCredential.user
+      
+      // Update user profile in Firestore (in case profile data changed)
+      await saveUserProfile(user.uid, {
+        name: user.displayName || '',
+        email: user.email || '',
+        photoURL: user.photoURL || null
+      })
+      
       // Redirect to profile after successful login
       navigate('/profile')
     } catch (err) {

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase'
+import { saveUserProfile } from '../services/userService'
 
 function Register() {
   const navigate = useNavigate()
@@ -50,9 +51,16 @@ function Register() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
       
-      // Update the user's display name
+      // Update the user's display name in Firebase Auth
       await updateProfile(userCredential.user, {
         displayName: formData.name
+      })
+      
+      // Save user profile to Firestore
+      await saveUserProfile(userCredential.user.uid, {
+        name: formData.name,
+        email: formData.email,
+        createdAt: new Date().toISOString()
       })
       
       // Redirect to profile after successful registration
@@ -79,7 +87,16 @@ function Register() {
     setGoogleLoading(true)
 
     try {
-      await signInWithPopup(auth, googleProvider)
+      const userCredential = await signInWithPopup(auth, googleProvider)
+      const user = userCredential.user
+      
+      // Save/update user profile to Firestore (for both new and existing users)
+      await saveUserProfile(user.uid, {
+        name: user.displayName || '',
+        email: user.email || '',
+        photoURL: user.photoURL || null
+      })
+      
       // Redirect to profile after successful registration/login
       navigate('/profile')
     } catch (err) {
