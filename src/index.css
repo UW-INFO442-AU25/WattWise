@@ -169,41 +169,43 @@ nav {
 
 .about-header {
     position: relative;
-    height: 400px;
-    background-image: url('/neighborhood.png');
+    height: 40vh;
+    min-height: 300px;
+    background-image: linear-gradient(rgba(127, 175, 202, 0.7), rgba(123, 168, 143, 0.7)), url('/green park.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     margin-bottom: 3rem;
+    margin-top: 60px;
+    color: white;
 }
 
 .about-header-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, rgba(245, 241, 235, 0.85) 0%, rgba(245, 241, 235, 0.75) 100%);
-    backdrop-filter: blur(2px);
+    display: none;
 }
 
 .about-title {
-    font-size: 3.5rem;
-    color: #5B8FA8;
-    text-align: center;
+    font-size: 3.75rem;
+    margin-bottom: 1.75rem;
+    animation: fadeInUp 1s ease-out;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     font-weight: 700;
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
+    line-height: 1.2;
+    color: #FFFFFF !important;
+    text-align: center;
     position: relative;
     z-index: 2;
-    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
-    padding: 1rem 2rem;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    background: none;
+    backdrop-filter: none;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 .about h2 {
@@ -840,8 +842,12 @@ nav {
 /* Environmental Impact Section */
 .impact-section {
     padding: 5rem 2rem;
+    min-height: 80vh;
     background: linear-gradient(to bottom, #FDFCFB 0%, #FFFFFF 50%, #FFFFFF 100%);
     color: #2F3A3D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .impact-section.visible {
@@ -896,6 +902,251 @@ nav {
     border-radius: 8px;
     margin-top: 1rem;
     color: #4A5A5E;
+}
+
+/* Flashcard Quiz Styles */
+.flashcard-container {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.flashcard-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.flashcard-subtitle {
+    font-size: 1.1rem;
+    color: #4A5A5E;
+    margin-top: 1rem;
+    font-weight: 400;
+}
+
+.flashcard-wrapper {
+    width: 100%;
+    max-width: 600px;
+    perspective: 1000px;
+    margin: 2rem 0 0.5rem 0;
+}
+
+.flashcard {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.flashcard:hover {
+    transform: translateY(-4px);
+}
+
+.flashcard:focus {
+    outline: 2px solid #6BA3C7;
+    outline-offset: 4px;
+    border-radius: 16px;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem;
+}
+
+.flashcard-back {
+    transform: rotateY(180deg);
+}
+
+.flashcard-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card-type-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: linear-gradient(135deg, rgba(107, 163, 199, 0.15) 0%, rgba(122, 184, 154, 0.15) 100%);
+    color: #5B8FA8;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.flashcard-question {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #3A4A4E;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.flashcard-options {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.flashcard-options li {
+    padding: 0.75rem 1rem;
+    background: rgba(107, 163, 199, 0.08);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    color: #4A5A5E;
+    border-left: 3px solid #6BA3C7;
+    transition: all 0.2s ease;
+}
+
+.flashcard-options li:hover {
+    background: rgba(107, 163, 199, 0.15);
+    transform: translateX(4px);
+}
+
+.flashcard-answer {
+    font-size: 1.2rem;
+    color: #4A5A5E;
+    line-height: 1.7;
+    margin: 0;
+    font-weight: 400;
+}
+
+.flip-hint {
+    font-size: 0.9rem;
+    color: #6BA3C7;
+    font-style: italic;
+    margin-top: auto;
+    opacity: 0.7;
+}
+
+.flashcard-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 0.5rem;
+}
+
+.flashcard-nav-button {
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid rgba(107, 163, 199, 0.2);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+    color: #6BA3C7;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.flashcard-nav-button:hover:not(:disabled) {
+    background: white;
+    border-color: #6BA3C7;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(107, 163, 199, 0.25);
+}
+
+.flashcard-nav-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.flashcard-nav-button:focus {
+    outline: 2px solid #6BA3C7;
+    outline-offset: 2px;
+}
+
+.nav-arrow {
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: 300;
+}
+
+.flashcard-counter {
+    font-size: 1rem;
+    color: #4A5A5E;
+    font-weight: 500;
+    min-width: 60px;
+    text-align: center;
+}
+
+.loading-message {
+    font-size: 1.2rem;
+    color: #4A5A5E;
+    text-align: center;
+    padding: 3rem;
+}
+
+/* Responsive Flashcard Styles */
+@media (max-width: 768px) {
+    .flashcard {
+        height: 350px;
+    }
+
+    .flashcard-wrapper {
+        max-width: 85%;
+    }
+
+    .flashcard-front,
+    .flashcard-back {
+        padding: 2rem 1.5rem;
+    }
+
+    .flashcard-question {
+        font-size: 1.3rem;
+    }
+
+    .flashcard-answer {
+        font-size: 1.1rem;
+    }
+
+    .flashcard-nav-button {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+
+    .flashcard-controls {
+        gap: 1.5rem;
+    }
 }
 
 /* Quiz CTA Section */
@@ -1030,12 +1281,13 @@ nav {
     }
 
     .about-header {
-        height: 300px;
+        height: 40vh;
+        min-height: 300px;
     }
 
     .about-title {
         font-size: 2.5rem;
-        padding: 0.75rem 1.5rem;
+        padding: 0;
     }
 
     .about-question-title {

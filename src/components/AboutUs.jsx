@@ -66,7 +66,7 @@ function AboutUs() {
             </div>
           </div>
           <p>WattWise was born from this question, addressing <strong>UN Sustainable Development Goal 12: Responsible Consumption and Production</strong>. We focus on the lack of awareness around everyday household practices and their environmental and financial impact—especially for new homeowners across Washington state.</p>
-          <p>Many Washington homeowners don't realize that leaving appliances plugged in or running inefficient lightbulbs can rack up costs while wasting energy. Despite having access to some of the nation's cleanest and most affordable electricity, simple inefficiencies can still add up. By educating people on how simple fixes—like unplugging appliances or switching to eco-friendly alternatives—can save money and reduce environmental impact, we motivate people to shift their daily practices and take full advantage of Washington's clean energy advantage.</p>
+          <p style={{ marginTop: '2rem' }}>Many Washington homeowners don't realize that leaving appliances plugged in or running inefficient lightbulbs can rack up costs while wasting energy. Despite having access to some of the nation's cleanest and most affordable electricity, simple inefficiencies can still add up. By educating people on how simple fixes—like unplugging appliances or switching to eco-friendly alternatives—can save money and reduce environmental impact, we motivate people to shift their daily practices and take full advantage of Washington's clean energy advantage.</p>
         </div>
 
         <div className="sdg-highlight">

@@ -1,54 +1,102 @@
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
-import SustainableHomeSimulator from './SustainableHomeSimulator'
+import { useState, useEffect } from 'react';
+import Flashcard from './Flashcard';
+import FlashcardControls from './FlashcardControls';
+import { sustainabilityCards } from './cardsData';
 
-function EnvironmentImpact() {
-  const impactRef = useIntersectionObserver()
-
-  return (
-    <section id="impact" className="impact-section" ref={impactRef}>
-      <div className="container">
-        <h2 className="section-title">Your Impact on the Environment</h2>
-        <p style={{ textAlign: 'center', fontSize: '1.2rem', marginBottom: '2rem' }}>
-          Small changes in your home can create ripple effects across our planet. Here's what the average Washington household can save annually through simple optimizations:
-        </p>
-
-        <div className="impact-grid">
-          <div className="impact-card">
-            <div className="impact-icon">💨</div>
-            <div className="impact-value">8,400 lbs</div>
-            <div className="impact-label">CO₂ Emissions Reduced</div>
-            <div className="impact-comparison">Equivalent to planting 140 trees or taking your car off the road for 9,300 miles</div>
-          </div>
-
-          <div className="impact-card">
-            <div className="impact-icon">💧</div>
-            <div className="impact-value">18,000 gal</div>
-            <div className="impact-label">Water Saved Annually</div>
-            <div className="impact-comparison">That's enough to fill 3 dump trucks or take 360 five-minute showers</div>
-          </div>
-
-          <div className="impact-card">
-            <div className="impact-icon">⚡</div>
-            <div className="impact-value">3,200 kWh</div>
-            <div className="impact-label">Energy Conserved</div>
-            <div className="impact-comparison">Enough electricity to power your refrigerator for 3 years straight</div>
-          </div>
-        </div>
-
-        {/* Interactive Sustainable Home Simulator */}
-        <div style={{ marginTop: '4rem' }}>
-          <h2 className="section-title" style={{ marginBottom: '1rem' }}>
-            Interactive Home Simulator
-          </h2>
-          <p style={{ textAlign: 'center', fontSize: '1.1rem', marginBottom: '2rem', color: '#4A5A5E' }}>
-            Drag and drop sustainable upgrades onto appliances in your home to see how each change impacts your environmental footprint.
-          </p>
-          <SustainableHomeSimulator />
-        </div>
-      </div>
-    </section>
-  )
+// Fisher-Yates shuffle algorithm
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
 }
 
-export default EnvironmentImpact
+function EnvironmentImpact() {
+  const [cards, setCards] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  // Shuffle cards once on component mount
+  useEffect(() => {
+    const shuffled = shuffleArray(sustainabilityCards);
+    setCards(shuffled);
+  }, []);
+
+  // Reset flip state when navigating to a new card
+  useEffect(() => {
+    setIsFlipped(false);
+  }, [currentIndex]);
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowLeft' && currentIndex > 0) {
+        setCurrentIndex(currentIndex - 1);
+      } else if (e.key === 'ArrowRight' && currentIndex < cards.length - 1) {
+        setCurrentIndex(currentIndex + 1);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentIndex, cards.length]);
+
+  const handlePrevious = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentIndex < cards.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  const handleFlip = () => {
+    setIsFlipped(!isFlipped);
+  };
+
+  if (cards.length === 0) {
+    return (
+      <section id="impact" className="impact-section">
+        <div className="flashcard-container">
+          <div className="loading-message">Loading flashcards...</div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="impact" className="impact-section">
+      <div className="flashcard-container">
+        <div className="flashcard-header">
+          <h2 className="section-title">Your Impact on the Environment</h2>
+          <p className="flashcard-subtitle">
+            Test your knowledge about household sustainability. Click each card to flip and learn!
+          </p>
+        </div>
+        
+        <div className="flashcard-wrapper">
+          <Flashcard
+            card={cards[currentIndex]}
+            isFlipped={isFlipped}
+            onFlip={handleFlip}
+          />
+        </div>
+
+        <FlashcardControls
+          onPrevious={handlePrevious}
+          onNext={handleNext}
+          currentIndex={currentIndex}
+          totalCards={cards.length}
+        />
+      </div>
+    </section>
+  );
+}
+
+export default EnvironmentImpact;
 
