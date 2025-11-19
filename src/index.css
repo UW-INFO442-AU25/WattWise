@@ -841,13 +841,46 @@ nav {
 
 /* Environmental Impact Section */
 .impact-section {
-    padding: 5rem 2rem;
+    padding: 0;
     min-height: 80vh;
-    background: linear-gradient(to bottom, #FDFCFB 0%, #FFFFFF 50%, #FFFFFF 100%);
+    background-color: #F5F1EB;
     color: #2F3A3D;
+}
+
+.impact-header {
+    position: relative;
+    height: 40vh;
+    min-height: 300px;
+    background-image: linear-gradient(rgba(127, 175, 202, 0.7), rgba(123, 168, 143, 0.7)), url('/insideHome.png');
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.impact-header-overlay {
+    display: none;
+}
+
+.impact-title {
+    font-size: 3.75rem;
+    margin-bottom: 1.75rem;
+    animation: fadeInUp 1s ease-out;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.2;
+    color: #FFFFFF !important;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 0;
+    background: none;
+    backdrop-filter: none;
+    border-radius: 0;
 }
 
 .impact-section.visible {
@@ -909,6 +942,7 @@ nav {
     max-width: 900px;
     width: 100%;
     margin: 0 auto;
+    padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -921,10 +955,16 @@ nav {
 }
 
 .flashcard-subtitle {
-    font-size: 1.1rem;
-    color: #4A5A5E;
-    margin-top: 1rem;
-    font-weight: 400;
+    font-size: 1.25rem;
+    color: #5B8FA8;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .flashcard-wrapper {
@@ -1286,6 +1326,16 @@ nav {
     }
 
     .about-title {
+        font-size: 2.5rem;
+        padding: 0;
+    }
+
+    .impact-header {
+        height: 40vh;
+        min-height: 300px;
+    }
+
+    .impact-title {
         font-size: 2.5rem;
         padding: 0;
     }

@@ -62,6 +62,10 @@ function EnvironmentImpact() {
   if (cards.length === 0) {
     return (
       <section id="impact" className="impact-section">
+        <div className="impact-header">
+          <div className="impact-header-overlay"></div>
+          <h2 className="impact-title">Your Impact on the Environment</h2>
+        </div>
         <div className="flashcard-container">
           <div className="loading-message">Loading flashcards...</div>
         </div>
@@ -71,13 +75,14 @@ function EnvironmentImpact() {
 
   return (
     <section id="impact" className="impact-section">
+      <div className="impact-header">
+        <div className="impact-header-overlay"></div>
+        <h2 className="impact-title">Your Impact on the Environment</h2>
+      </div>
       <div className="flashcard-container">
-        <div className="flashcard-header">
-          <h2 className="section-title">Your Impact on the Environment</h2>
-          <p className="flashcard-subtitle">
-            Test your knowledge about household sustainability. Click each card to flip and learn!
-          </p>
-        </div>
+        <p className="flashcard-subtitle">
+          Test your knowledge about household sustainability. Click each card to flip and learn!
+        </p>
         
         <div className="flashcard-wrapper">
           <Flashcard

@@ -9,9 +9,9 @@ function ImpactPage() {
       <div style={{ marginTop: '80px' }}>
         <EnvironmentImpact />
       </div>
-      <div style={{ marginTop: '80px' }}>
+      {/* <div style={{ marginTop: '80px' }}>
         <SustainableHomeSimulator />
-      </div>
+      </div> */}
     </>
   )
 }
