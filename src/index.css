@@ -76,6 +76,24 @@ nav {
     width: 100%;
 }
 
+.nav-profile-link {
+    color: #6BA3C7 !important;
+    font-weight: 600 !important;
+}
+
+.nav-profile-link::after {
+    background: linear-gradient(135deg, #6BA3C7 0%, #7AB89A 100%) !important;
+}
+
+.nav-login-link {
+    color: #7AB89A !important;
+    font-weight: 600 !important;
+}
+
+.nav-login-link::after {
+    background: linear-gradient(135deg, #7AB89A 0%, #6BA3C7 100%) !important;
+}
+
 /* Hero Section */
 .hero {
     height: 100vh;

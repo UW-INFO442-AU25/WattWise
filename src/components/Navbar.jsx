@@ -1,6 +1,21 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../firebase'
 
 function Navbar() {
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+      setLoading(false)
+    })
+
+    return () => unsubscribe()
+  }, [])
+
   const handleNavClick = (e, targetId) => {
     e.preventDefault()
     const element = document.getElementById(targetId)
@@ -20,7 +35,13 @@ function Navbar() {
         <li><Link to="/quiz">Quiz</Link></li>
         <li><Link to="/impact">Impact</Link></li>
         <li><Link to="/about">About</Link></li>
-        <li><Link to="/profile">My Profile</Link></li>
+        {loading ? (
+          <li><span style={{ color: '#999' }}>Loading...</span></li>
+        ) : user ? (
+          <li><Link to="/profile" className="nav-profile-link">My Profile</Link></li>
+        ) : (
+          <li><Link to="/login" className="nav-login-link">Login</Link></li>
+        )}
       </ul>
     </nav>
   )
