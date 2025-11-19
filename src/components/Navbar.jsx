@@ -32,8 +32,8 @@ function Navbar() {
       <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>WattWise</Link>
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/quiz">Quiz</Link></li>
         <li><Link to="/impact">Impact</Link></li>
+        <li><Link to="/quiz">Quiz</Link></li>
         <li><Link to="/about">About</Link></li>
         {loading ? (
           <li><span style={{ color: '#999' }}>Loading...</span></li>
