@@ -9,13 +9,14 @@ import MyProfilePage from './pages/MyProfilePage'
 import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
 import { useScrollToTop } from './hooks/useScrollToTop'
+import { AuthProvider } from './contexts/AuthContext'
 
 
 function App() {
   useScrollToTop()
 
   return (
-    <>
+    <AuthProvider>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -26,7 +27,7 @@ function App() {
         <Route path="/quiz" element={<QuizPage />} />
         <Route path="/quiz/results" element={<QuizResultsPage />} />
       </Routes>
-    </>
+    </AuthProvider>
   )
 }
 

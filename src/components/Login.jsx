@@ -1,11 +1,15 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase'
-import { saveUserProfile } from '../services/userService'
+import { saveUserProfile, saveQuizResults } from '../services/userService'
 
 function Login() {
   const navigate = useNavigate()
+  const location = useLocation()
+  // Check if coming from quiz results page
+  const quizResults = location.state?.results
+  const quizAnswers = location.state?.quizAnswers
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -35,7 +39,19 @@ function Login() {
     }
 
     try {
-      await signInWithEmailAndPassword(auth, formData.email, formData.password)
+      const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password)
+      
+      // Save quiz results if coming from quiz results page (overwrites previous results)
+      if (quizResults && quizResults.length > 0) {
+        try {
+          await saveQuizResults(userCredential.user.uid, quizResults, quizAnswers || {})
+          console.log('Quiz results saved after login')
+        } catch (error) {
+          console.error('Error saving quiz results after login:', error)
+          // Don't block login if quiz save fails
+        }
+      }
+      
       // Redirect to profile after successful login
       navigate('/profile')
     } catch (err) {
@@ -71,6 +87,17 @@ function Login() {
         email: user.email || '',
         photoURL: user.photoURL || null
       })
+      
+      // Save quiz results if coming from quiz results page (overwrites previous results)
+      if (quizResults && quizResults.length > 0) {
+        try {
+          await saveQuizResults(user.uid, quizResults, quizAnswers || {})
+          console.log('Quiz results saved after Google login')
+        } catch (error) {
+          console.error('Error saving quiz results after Google login:', error)
+          // Don't block login if quiz save fails
+        }
+      }
       
       // Redirect to profile after successful login
       navigate('/profile')

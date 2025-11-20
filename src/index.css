@@ -1606,3 +1606,232 @@ nav {
     padding: 2rem;
     text-align: center;
 }
+
+/* Profile Quiz Results Section */
+.profile-quiz-results {
+    margin-top: 3rem;
+}
+
+.profile-quiz-results-title {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.profile-quiz-date {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.profile-quiz-summary {
+    background: linear-gradient(135deg, #7FAFCA 0%, #7BA88F 100%);
+    padding: 2rem;
+    border-radius: 20px;
+    color: white;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.profile-quiz-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.profile-quiz-summary-item {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.profile-quiz-summary-label {
+    font-size: 1.1rem;
+}
+
+.profile-quiz-categories {
+    margin-bottom: 3rem;
+}
+
+.profile-quiz-category-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 2px solid #E9E4DC;
+}
+
+.profile-quiz-category-title {
+    color: #7FAFCA;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.profile-quiz-category-icon {
+    font-size: 2rem;
+}
+
+.profile-quiz-category-list {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-quiz-recommendation {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    background: #E9E4DC;
+    border-radius: 10px;
+    border-left: 4px solid #7BA88F;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.profile-quiz-recommendation-text {
+    margin: 0;
+    flex: 1;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #2F3A3D;
+}
+
+.profile-quiz-savings-badge {
+    background: linear-gradient(135deg, #7FAFCA 0%, #7BA88F 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.profile-quiz-actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.profile-quiz-actions .cta-button {
+    display: inline-block;
+    text-decoration: none;
+    min-width: 200px;
+}
+
+.profile-no-quiz {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.profile-no-quiz-text {
+    margin-bottom: 2rem;
+}
+
+.profile-no-quiz .cta-button {
+    display: inline-block;
+    text-decoration: none;
+}
+
+/* Quiz Confirmation Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 1rem;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s ease-out;
+    text-align: center;
+}
+
+.modal-title {
+    font-size: 1.8rem;
+    color: #7FAFCA;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.modal-message {
+    font-size: 1.05rem;
+    color: #2F3A3D;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.modal-button {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 140px;
+}
+
+.modal-button-cancel {
+    background: #E9E4DC;
+    color: #2F3A3D;
+}
+
+.modal-button-cancel:hover {
+    background: #D8D0C0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.modal-button-confirm {
+    background: linear-gradient(135deg, #7FAFCA 0%, #7BA88F 100%);
+    color: white;
+}
+
+.modal-button-confirm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(127, 175, 202, 0.4);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

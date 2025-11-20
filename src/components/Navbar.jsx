@@ -1,20 +1,14 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { onAuthStateChanged } from 'firebase/auth'
-import { auth } from '../firebase'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
+import { useQuizResults } from '../hooks/useQuizResults'
+import QuizConfirmationModal from './QuizConfirmationModal'
 
 function Navbar() {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser)
-      setLoading(false)
-    })
-
-    return () => unsubscribe()
-  }, [])
+  const { user, loading } = useAuth()
+  const navigate = useNavigate()
+  const { hasResults, loading: resultsLoading } = useQuizResults(user?.uid)
+  const [showModal, setShowModal] = useState(false)
 
   const handleNavClick = (e, targetId) => {
     e.preventDefault()
@@ -27,23 +21,55 @@ function Navbar() {
     }
   }
 
+  const handleQuizClick = (e) => {
+    e.preventDefault()
+    // Show modal if user is logged in and has results
+    if (user && hasResults) {
+      setShowModal(true)
+    } else {
+      navigate('/quiz')
+    }
+  }
+
+  const handleConfirm = () => {
+    setShowModal(false)
+    navigate('/quiz')
+  }
+
+  const handleCancel = () => {
+    setShowModal(false)
+  }
+
   return (
-    <nav>
-      <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>WattWise</Link>
-      <ul className="nav-links">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/impact">Impact</Link></li>
-        <li><Link to="/quiz">Quiz</Link></li>
-        <li><Link to="/about">About</Link></li>
-        {loading ? (
-          <li><span style={{ color: '#999' }}>Loading...</span></li>
-        ) : user ? (
-          <li><Link to="/profile" className="nav-profile-link">My Profile</Link></li>
-        ) : (
-          <li><Link to="/login" className="nav-login-link">Login</Link></li>
-        )}
-      </ul>
-    </nav>
+    <>
+      <nav>
+        <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>WattWise</Link>
+        <ul className="nav-links">
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/impact">Impact</Link></li>
+          <li>
+            {user && !resultsLoading && hasResults ? (
+              <a href="/quiz" onClick={handleQuizClick} style={{ cursor: 'pointer' }}>Quiz</a>
+            ) : (
+              <Link to="/quiz">Quiz</Link>
+            )}
+          </li>
+          <li><Link to="/about">About</Link></li>
+          {loading ? (
+            <li><span style={{ color: '#999' }}>Loading...</span></li>
+          ) : user ? (
+            <li><Link to="/profile" className="nav-profile-link">My Profile</Link></li>
+          ) : (
+            <li><Link to="/login" className="nav-login-link">Login</Link></li>
+          )}
+        </ul>
+      </nav>
+      <QuizConfirmationModal 
+        isOpen={showModal}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+    </>
   )
 }
 

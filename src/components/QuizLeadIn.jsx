@@ -1,14 +1,34 @@
 // src/components/QuizLeadIn.jsx
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { useAuth } from '../contexts/AuthContext'
+import { useQuizResults } from '../hooks/useQuizResults'
+import QuizConfirmationModal from './QuizConfirmationModal'
 
 function QuizLeadIn() {
   const quizRef = useIntersectionObserver()
   const navigate = useNavigate()
+  const { user } = useAuth()
+  const { hasResults, loading: resultsLoading } = useQuizResults(user?.uid)
+  const [showModal, setShowModal] = useState(false)
 
   const handleQuizClick = () => {
-    console.log('quiz button clicked')
+    // Show modal if user is logged in and has results
+    if (user && hasResults) {
+      setShowModal(true)
+    } else {
+      navigate('/quiz')
+    }
+  }
+
+  const handleConfirm = () => {
+    setShowModal(false)
     navigate('/quiz')
+  }
+
+  const handleCancel = () => {
+    setShowModal(false)
   }
 
   return (
@@ -25,6 +45,11 @@ function QuizLeadIn() {
       <button className="cta-button" onClick={handleQuizClick}>
         Tell Us About Your Home!
       </button>
+      <QuizConfirmationModal 
+        isOpen={showModal}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
     </section>
   )
 }

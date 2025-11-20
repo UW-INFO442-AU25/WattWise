@@ -1,9 +1,37 @@
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, Link } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
+import { saveQuizResults } from '../services/userService'
 
 function QuizResults() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { user, loading: authLoading } = useAuth()
   const results = location.state?.results || []
+  const quizAnswers = location.state?.quizAnswers || {}
+  const [saving, setSaving] = useState(false)
+  const [saveSuccess, setSaveSuccess] = useState(false)
+
+  // Auto-save results if user is logged in
+  useEffect(() => {
+    if (!authLoading && user && results.length > 0) {
+      const saveResults = async () => {
+        setSaving(true)
+        try {
+          // Save quiz results, overwriting any previous results (most recent only)
+          await saveQuizResults(user.uid, results, quizAnswers)
+          setSaveSuccess(true)
+          console.log('Quiz results saved successfully')
+        } catch (error) {
+          console.error('Error saving quiz results:', error)
+          // Don't show error to user, just log it
+        } finally {
+          setSaving(false)
+        }
+      }
+      saveResults()
+    }
+  }, [user, authLoading, results, quizAnswers])
 
   // If no results, redirect to quiz
   if (results.length === 0) {
@@ -119,40 +147,88 @@ function QuizResults() {
         </div>
       </div>
 
-      {/* Registration Prompt */}
-      <div style={{
-        background: 'linear-gradient(135deg, rgba(127, 175, 202, 0.1) 0%, rgba(123, 168, 143, 0.1) 100%)',
-        padding: '2rem',
-        borderRadius: '15px',
-        border: '2px solid #7FAFCA',
-        marginBottom: '3rem',
-        textAlign: 'center'
-      }}>
-        <p style={{ fontSize: '1.2rem', color: '#2F3A3D', marginBottom: '1rem', fontWeight: '600' }}>
-          Want to save your quiz results so you don't lose them?
-        </p>
-        <Link to="/register" style={{
-          display: 'inline-block',
-          padding: '0.75rem 2rem',
-          background: 'linear-gradient(135deg, #7FAFCA 0%, #7BA88F 100%)',
-          color: 'white',
-          textDecoration: 'none',
-          borderRadius: '50px',
-          fontSize: '1.1rem',
-          fontWeight: 'bold',
-          transition: 'transform 0.3s, box-shadow 0.3s'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateY(-3px)'
-          e.currentTarget.style.boxShadow = '0 10px 25px rgba(127, 175, 202, 0.4)'
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'translateY(0)'
-          e.currentTarget.style.boxShadow = 'none'
+      {/* Registration/Login Prompt - Only show if user is not logged in */}
+      {!authLoading && !user && (
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(127, 175, 202, 0.1) 0%, rgba(123, 168, 143, 0.1) 100%)',
+          padding: '2rem',
+          borderRadius: '15px',
+          border: '2px solid #7FAFCA',
+          marginBottom: '3rem',
+          textAlign: 'center'
         }}>
-          Register Here!
-        </Link>
-      </div>
+          <p style={{ fontSize: '1.2rem', color: '#2F3A3D', marginBottom: '1.5rem', fontWeight: '600' }}>
+            Want to save your quiz results so you don't lose them?
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link 
+              to="/login" 
+              state={{ results, quizAnswers }}
+              style={{
+                display: 'inline-block',
+                padding: '0.75rem 2rem',
+                background: 'white',
+                color: '#7FAFCA',
+                textDecoration: 'none',
+                borderRadius: '50px',
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                border: '2px solid #7FAFCA',
+                transition: 'transform 0.3s, box-shadow 0.3s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-3px)'
+                e.currentTarget.style.boxShadow = '0 10px 25px rgba(127, 175, 202, 0.2)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}>
+              Login Here!
+            </Link>
+            <Link 
+              to="/register" 
+              state={{ results, quizAnswers }}
+              style={{
+                display: 'inline-block',
+                padding: '0.75rem 2rem',
+                background: 'linear-gradient(135deg, #7FAFCA 0%, #7BA88F 100%)',
+                color: 'white',
+                textDecoration: 'none',
+                borderRadius: '50px',
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                transition: 'transform 0.3s, box-shadow 0.3s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-3px)'
+                e.currentTarget.style.boxShadow = '0 10px 25px rgba(127, 175, 202, 0.4)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}>
+              Register Here!
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Save Success Message - Show if user is logged in and results were saved */}
+      {!authLoading && user && saveSuccess && (
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(123, 168, 143, 0.2) 0%, rgba(127, 175, 202, 0.2) 100%)',
+          padding: '1.5rem',
+          borderRadius: '15px',
+          border: '2px solid #7BA88F',
+          marginBottom: '3rem',
+          textAlign: 'center'
+        }}>
+          <p style={{ fontSize: '1.1rem', color: '#2F3A3D', fontWeight: '600' }}>
+            ✓ Your quiz results have been saved to your profile!
+          </p>
+        </div>
+      )}
 
       {/* Categorized Recommendations */}
       <div style={{ marginBottom: '3rem' }}>

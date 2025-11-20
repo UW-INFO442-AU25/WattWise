@@ -1,11 +1,15 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase'
-import { saveUserProfile } from '../services/userService'
+import { saveUserProfile, saveQuizResults } from '../services/userService'
 
 function Register() {
   const navigate = useNavigate()
+  const location = useLocation()
+  // Check if coming from quiz results page
+  const quizResults = location.state?.results
+  const quizAnswers = location.state?.quizAnswers
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -63,6 +67,17 @@ function Register() {
         createdAt: new Date().toISOString()
       })
       
+      // Save quiz results if coming from quiz results page
+      if (quizResults && quizResults.length > 0) {
+        try {
+          await saveQuizResults(userCredential.user.uid, quizResults, quizAnswers || {})
+          console.log('Quiz results saved after registration')
+        } catch (error) {
+          console.error('Error saving quiz results after registration:', error)
+          // Don't block registration if quiz save fails
+        }
+      }
+      
       // Redirect to profile after successful registration
       navigate('/profile')
     } catch (err) {
@@ -96,6 +111,17 @@ function Register() {
         email: user.email || '',
         photoURL: user.photoURL || null
       })
+      
+      // Save quiz results if coming from quiz results page
+      if (quizResults && quizResults.length > 0) {
+        try {
+          await saveQuizResults(user.uid, quizResults, quizAnswers || {})
+          console.log('Quiz results saved after Google registration')
+        } catch (error) {
+          console.error('Error saving quiz results after Google registration:', error)
+          // Don't block registration if quiz save fails
+        }
+      }
       
       // Redirect to profile after successful registration/login
       navigate('/profile')

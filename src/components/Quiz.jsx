@@ -177,7 +177,13 @@ function computeRecs(answers) {
     console.log('FINAL Recommendations:', recs)
     console.log('Navigating to results page...')
 
-    navigate('/quiz/results', { state: { results: recs } })
+    // Pass both results and quiz answers to results page
+    navigate('/quiz/results', { 
+      state: { 
+        results: recs,
+        quizAnswers: answers 
+      } 
+    })
     }
 
     return (
