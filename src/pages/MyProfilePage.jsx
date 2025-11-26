@@ -5,7 +5,7 @@ function MyProfilePage() {
   return (
     <>
       <Navbar />
-      <div style={{ marginTop: '80px' }}>
+      <div className="profile-page-wrapper">
         <MyProfile />
       </div>
     </>
