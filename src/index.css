@@ -572,7 +572,12 @@ nav {
 .question-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem auto;
     animation: float 3s ease-in-out infinite;
 }
 
@@ -582,6 +587,34 @@ nav {
 
 .question-card:nth-child(3) .question-icon {
     animation-delay: 1s;
+}
+
+/* Icon SVG styling */
+.icon-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Dollar Icon - soft rounded background */
+.question-icon-dollar {
+    background: linear-gradient(135deg, rgba(107, 163, 199, 0.15) 0%, rgba(122, 184, 154, 0.15) 100%);
+    border-radius: 20px;
+    position: relative;
+}
+
+/* Plant Icon - soft rounded background */
+.question-icon-plant {
+    background: linear-gradient(135deg, rgba(122, 184, 154, 0.15) 0%, rgba(107, 154, 127, 0.15) 100%);
+    border-radius: 20px;
+    position: relative;
+}
+
+/* Power Icon - soft rounded background */
+.question-icon-power {
+    background: linear-gradient(135deg, rgba(107, 163, 199, 0.15) 0%, rgba(91, 143, 168, 0.15) 100%);
+    border-radius: 20px;
+    position: relative;
 }
 
 .question-card h4 {
