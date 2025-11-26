@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Flashcard from './Flashcard';
 import FlashcardControls from './FlashcardControls';
-import { sustainabilityCards } from './cardsData';
+import { sustainabilityCards, termDefinitions } from './cardsData';
 
 // Fisher-Yates shuffle algorithm
 function shuffleArray(array) {
@@ -17,6 +17,18 @@ function EnvironmentImpact() {
   const [cards, setCards] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [activeDefinition, setActiveDefinition] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Shuffle cards once on component mount
   useEffect(() => {
@@ -27,6 +39,7 @@ function EnvironmentImpact() {
   // Reset flip state when navigating to a new card
   useEffect(() => {
     setIsFlipped(false);
+    setActiveDefinition(null);
   }, [currentIndex]);
 
   // Handle keyboard navigation
@@ -59,6 +72,19 @@ function EnvironmentImpact() {
     setIsFlipped(!isFlipped);
   };
 
+  const handleTermClick = (term) => {
+    if (term && termDefinitions[term]) {
+      setActiveDefinition({
+        term: term,
+        definition: termDefinitions[term]
+      });
+    }
+  };
+
+  const closeDefinition = () => {
+    setActiveDefinition(null);
+  };
+
   if (cards.length === 0) {
     return (
       <section id="impact" className="impact-section">
@@ -89,8 +115,36 @@ function EnvironmentImpact() {
             card={cards[currentIndex]}
             isFlipped={isFlipped}
             onFlip={handleFlip}
+            onSwipeLeft={handleNext}
+            onSwipeRight={handlePrevious}
+            onTermClick={handleTermClick}
+            activeDefinition={!isMobile ? activeDefinition : null}
+            onCloseDefinition={closeDefinition}
           />
         </div>
+
+        {/* Mobile: Definition bottom sheet overlay */}
+        {isMobile && activeDefinition && (
+          <>
+            <div className="definition-overlay" onClick={closeDefinition}></div>
+            <div className="definition-bottom-sheet">
+              <div className="definition-drag-handle"></div>
+              <div className="definition-header">
+                <span className="definition-term">{activeDefinition.term}</span>
+                <button 
+                  className="definition-close"
+                  onClick={closeDefinition}
+                  aria-label="Close definition"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="definition-body">
+                {activeDefinition.definition}
+              </div>
+            </div>
+          </>
+        )}
 
         <FlashcardControls
           onPrevious={handlePrevious}
@@ -104,4 +158,3 @@ function EnvironmentImpact() {
 }
 
 export default EnvironmentImpact;
-

@@ -1,3 +1,45 @@
+// Definitions for technical terms
+export const termDefinitions = {
+  "kWh": "Kilowatt-hour - A unit of energy. Think of it as how much electricity you use over time. Your electricity bill is measured in kWh.",
+  "W": "Watt - A unit of power that measures how much energy a device uses. Lower watts mean less energy consumption.",
+  "CO₂": "Carbon Dioxide - A gas that contributes to climate change. When we use energy, we often create CO₂ emissions.",
+  "halogen bulb": "A type of light bulb that uses halogen gas. They're more efficient than old incandescent bulbs but less efficient than LEDs.",
+  "LED": "Light Emitting Diode - A type of light bulb that uses much less energy and lasts longer than traditional bulbs.",
+  "incandescent bulb": "An old-style light bulb that uses a filament. They're less energy-efficient than modern LED or CFL bulbs.",
+  "therm": "A unit of natural gas. One therm equals about 100 cubic feet of natural gas.",
+  "flow rate": "The speed at which water comes out, measured in gallons per minute. Lower flow rates use less water.",
+  "Energy Star": "A government program that certifies appliances as energy-efficient. Look for this label when buying new appliances.",
+  "standby mode": "When devices are off but still using electricity because they're plugged in. This is also called 'phantom load'.",
+  "standby power": "The electricity devices use even when turned off but still plugged in. Also called 'phantom load' or 'vampire power'.",
+  "phantom load": "The electricity devices use even when turned off but still plugged in. Also called 'vampire power' or 'standby power'.",
+  "power strips": "A device with multiple outlets that you can turn off with one switch, helping eliminate phantom load.",
+  "smart power strips": "Power strips that automatically turn off power to devices when they're not in use, saving energy.",
+  "programmable thermostats": "A thermostat you can set to automatically change temperatures at different times of day.",
+  "greenhouse gas emissions": "Gases like CO₂ that trap heat in the atmosphere and contribute to climate change.",
+  "manufacturing emissions": "Carbon dioxide and other gases released during the process of making products.",
+  "clean energy": "Energy from sources that don't produce harmful emissions, like solar, wind, or hydroelectric power.",
+  "sleep mode": "A low-power state for computers and electronics that uses much less energy than being fully on."
+};
+
+// Helper function to find terms in text
+export function findTermsInText(text) {
+  const foundTerms = [];
+  const termKeys = Object.keys(termDefinitions);
+  
+  // Sort by length (longest first) to match longer terms first
+  const sortedTerms = termKeys.sort((a, b) => b.length - a.length);
+  
+  sortedTerms.forEach(term => {
+    // Create regex to find whole word matches (case-insensitive)
+    const regex = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+    if (regex.test(text)) {
+      foundTerms.push(term);
+    }
+  });
+  
+  return foundTerms;
+}
+
 export const sustainabilityCards = [
   {
     id: "shower-usage",
@@ -100,4 +142,3 @@ export const sustainabilityCards = [
     answer: "Lowering your thermostat by 7–10°F for 8 hours can save 10% annually on heating costs. Programmable thermostats make this easy to automate."
   }
 ];
-

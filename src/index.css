@@ -76,6 +76,269 @@ nav {
     width: 100%;
 }
 
+/* Hamburger Menu */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.hamburger-line {
+    width: 100%;
+    height: 3px;
+    background: #4A5A5E;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.hamburger-line.open:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger-line.open:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-line.open:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* Mobile Navbar Styles */
+@media (max-width: 768px) {
+    nav {
+        padding: 1rem 1.5rem;
+    }
+
+    .hamburger-menu {
+        display: flex;
+        width: 32px;
+        height: 32px;
+        min-width: 44px;
+        min-height: 44px;
+        padding: 6px;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 280px;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 5rem 2rem 2rem 2rem;
+        gap: 0;
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease;
+        z-index: 1000;
+    }
+
+    .nav-links.open {
+        right: 0;
+    }
+
+    .nav-links li {
+        width: 100%;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(107, 163, 199, 0.1);
+    }
+
+    .nav-links li:last-child {
+        border-bottom: none;
+    }
+
+    .nav-links a {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 0;
+        font-size: 1.1rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-links a::after {
+        display: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:active {
+        color: #6BA3C7;
+        padding-left: 0.5rem;
+    }
+
+    .logo {
+        font-size: 1.4rem;
+    }
+
+    .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 999;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+    }
+
+    /* Hero Section Mobile Optimizations */
+    .hero {
+        height: 100vh;
+        min-height: 600px;
+        padding: 1.5rem;
+        margin-top: 60px;
+        background-attachment: scroll;
+    }
+
+    .hero h1 {
+        font-size: 2.25rem;
+        margin-bottom: 1.25rem;
+        line-height: 1.3;
+        padding: 0 1rem;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+        line-height: 1.6;
+    }
+
+    .learn-more-button {
+        padding: 1rem 2.25rem;
+        font-size: 1rem;
+        min-height: 48px;
+        min-width: 160px;
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Section Titles Mobile */
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    /* Better Touch Targets */
+    button, .carousel-button, .flashcard-nav-button {
+        min-height: 44px;
+        min-width: 44px;
+        -webkit-tap-highlight-color: rgba(107, 163, 199, 0.2);
+    }
+
+    /* Improved Spacing */
+    .about-content,
+    .renting-section,
+    .homeowning-section,
+    .impact-section {
+        padding: 2rem 1.5rem;
+    }
+
+    /* Carousel Mobile Improvements */
+    .carousel-button {
+        width: 48px;
+        height: 48px;
+        font-size: 1.75rem;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .carousel-button:active {
+        transform: scale(0.95);
+    }
+
+    .carousel-wrapper {
+        touch-action: pan-y pinch-zoom;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .carousel-track {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Cards and Boxes */
+    .highlight-box {
+        padding: 1.75rem 1.25rem;
+        min-height: auto;
+    }
+
+    .highlight-box p {
+        font-size: 1.05rem;
+        line-height: 1.7;
+    }
+
+    /* About Section Mobile */
+    .about-header,
+    .impact-header {
+        height: 35vh;
+        min-height: 250px;
+        background-attachment: scroll;
+    }
+
+    .about-title,
+    .impact-title {
+        font-size: 2rem;
+        padding: 0 1.5rem;
+    }
+
+    /* Team Section Mobile */
+    .team {
+        padding: 2rem 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .team-member-card {
+        min-width: 140px;
+        padding: 1.5rem 1.25rem;
+    }
+
+    /* Better Text Readability */
+    .story-text,
+    .big-statement {
+        font-size: 1.15rem;
+        padding: 0 1rem;
+        line-height: 1.7;
+    }
+
+    /* Flashcard Mobile */
+    .flashcard-subtitle {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+
+    /* Prevent Text Selection on Buttons */
+    button {
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    /* Smooth Scrolling */
+    html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Better Form Inputs (if any) */
+    input, textarea, select {
+        font-size: 16px; /* Prevents zoom on iOS */
+        min-height: 44px;
+    }
+}
+
 .nav-profile-link {
     color: #6BA3C7 !important;
     font-weight: 600 !important;
@@ -309,7 +572,12 @@ nav {
 .question-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem auto;
     animation: float 3s ease-in-out infinite;
 }
 
@@ -319,6 +587,34 @@ nav {
 
 .question-card:nth-child(3) .question-icon {
     animation-delay: 1s;
+}
+
+/* Icon SVG styling */
+.icon-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Dollar Icon - soft rounded background */
+.question-icon-dollar {
+    background: linear-gradient(135deg, rgba(107, 163, 199, 0.15) 0%, rgba(122, 184, 154, 0.15) 100%);
+    border-radius: 20px;
+    position: relative;
+}
+
+/* Plant Icon - soft rounded background */
+.question-icon-plant {
+    background: linear-gradient(135deg, rgba(122, 184, 154, 0.15) 0%, rgba(107, 154, 127, 0.15) 100%);
+    border-radius: 20px;
+    position: relative;
+}
+
+/* Power Icon - soft rounded background */
+.question-icon-power {
+    background: linear-gradient(135deg, rgba(107, 163, 199, 0.15) 0%, rgba(91, 143, 168, 0.15) 100%);
+    border-radius: 20px;
+    position: relative;
 }
 
 .question-card h4 {
@@ -990,6 +1286,11 @@ nav {
     max-width: 600px;
     perspective: 1000px;
     margin: 2rem 0 0.5rem 0;
+    position: relative;
+}
+
+.flashcard-wrapper::before {
+    display: none;
 }
 
 .flashcard {
@@ -1036,7 +1337,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2.5rem;
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
 }
 
 .flashcard-back {
@@ -1048,6 +1349,32 @@ nav {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    position: relative;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+/* Definition Panel (inside card for desktop) */
+.definition-panel {
+    background: linear-gradient(135deg, rgba(107, 163, 199, 0.12) 0%, rgba(123, 168, 143, 0.12) 100%);
+    border: 2px solid rgba(107, 163, 199, 0.3);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    animation: definitionSlideIn 0.3s ease-out;
+    box-shadow: 0 2px 8px rgba(107, 163, 199, 0.15);
+    position: relative;
+    order: 2;
+}
+
+.flashcard-content .definition-panel {
+    margin-top: auto;
+}
+
+.flashcard-content .flip-hint {
+    order: 3;
+    margin-top: 0.5rem;
 }
 
 .card-type-badge {
@@ -1111,6 +1438,160 @@ nav {
     opacity: 0.7;
 }
 
+/* Definable Terms */
+.definable-term {
+    color: #5B8FA8;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+    transition: all 0.2s ease;
+    position: relative;
+    padding: 2px 4px;
+    margin: 0 -2px;
+    border-radius: 3px;
+    -webkit-tap-highlight-color: rgba(107, 163, 199, 0.2);
+}
+
+.definable-term:hover {
+    color: #6BA3C7;
+    text-decoration-color: #6BA3C7;
+    background-color: rgba(107, 163, 199, 0.1);
+}
+
+.definable-term:active {
+    transform: scale(0.98);
+    background-color: rgba(107, 163, 199, 0.2);
+}
+
+/* Mobile Definition Bottom Sheet */
+.definition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2000;
+    animation: overlayFadeIn 0.3s ease-out;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+.definition-bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 24px 24px 0 0;
+    padding: 1.5rem 1.5rem calc(1.5rem + env(safe-area-inset-bottom));
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 2001;
+    max-height: 60vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    animation: bottomSheetSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.definition-drag-handle {
+    display: none;
+    width: 40px;
+    height: 4px;
+    background: rgba(107, 163, 199, 0.4);
+    border-radius: 2px;
+    margin: 0 auto 0.75rem auto;
+}
+
+.definition-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(107, 163, 199, 0.2);
+}
+
+.definition-term {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #5B8FA8;
+    text-transform: capitalize;
+}
+
+.definition-close {
+    background: transparent;
+    border: none;
+    color: #4A5A5E;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: rgba(107, 163, 199, 0.2);
+}
+
+.definition-close:hover {
+    background: rgba(107, 163, 199, 0.2);
+    color: #6BA3C7;
+    transform: scale(1.1);
+}
+
+.definition-close:active {
+    transform: scale(0.95);
+}
+
+.definition-body {
+    font-size: 0.95rem;
+    color: #4A5A5E;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.flashcard.definition-open {
+    cursor: default;
+}
+
+@keyframes definitionSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes overlayFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bottomSheetSlideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
 .flashcard-controls {
     display: flex;
     align-items: center;
@@ -1164,6 +1645,9 @@ nav {
     font-weight: 500;
     min-width: 60px;
     text-align: center;
+    padding: 0.5rem 1rem;
+    background: rgba(107, 163, 199, 0.08);
+    border-radius: 20px;
 }
 
 .loading-message {
@@ -1183,6 +1667,10 @@ nav {
         max-width: 85%;
     }
 
+    .flashcard-wrapper::before {
+        display: block;
+    }
+
     .flashcard-front,
     .flashcard-back {
         padding: 2rem 1.5rem;
@@ -1197,13 +1685,110 @@ nav {
     }
 
     .flashcard-nav-button {
-        width: 45px;
-        height: 45px;
-        font-size: 1.3rem;
+        width: 56px;
+        height: 56px;
+        font-size: 1.5rem;
+        min-width: 56px;
+        min-height: 56px;
     }
 
     .flashcard-controls {
-        gap: 1.5rem;
+        gap: 2rem;
+    }
+
+    .flashcard-counter {
+        font-size: 1.15rem;
+        font-weight: 600;
+        min-width: 80px;
+        padding: 0.75rem 1.25rem;
+    }
+
+    /* Swipe hint for first-time users (mobile only) */
+    .flashcard-wrapper::before {
+        content: '← Swipe to navigate →';
+        position: absolute;
+        top: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.85rem;
+        color: #6BA3C7;
+        opacity: 0.7;
+        font-weight: 500;
+        white-space: nowrap;
+        pointer-events: none;
+    }
+
+    @media (max-width: 480px) {
+        .flashcard-wrapper::before {
+            font-size: 0.75rem;
+            top: -1.75rem;
+        }
+    }
+
+    /* Hide definition panel inside card on mobile */
+    .flashcard-content .definition-panel {
+        display: none;
+    }
+
+    /* Mobile Definition Bottom Sheet */
+    .definition-drag-handle {
+        display: block;
+        width: 40px;
+        height: 4px;
+        background: rgba(107, 163, 199, 0.4);
+        border-radius: 2px;
+        margin: 0 auto 1rem auto;
+        flex-shrink: 0;
+    }
+
+    .definition-bottom-sheet .definition-header {
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+        flex-shrink: 0;
+    }
+
+    .definition-bottom-sheet .definition-term {
+        font-size: 1.1rem;
+    }
+
+    .definition-bottom-sheet .definition-body {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .definition-bottom-sheet .definition-close {
+        width: 44px;
+        height: 44px;
+        font-size: 1.75rem;
+    }
+
+    /* Larger touch targets for terms on mobile */
+    .definable-term {
+        padding: 4px 6px;
+        margin: 0 -4px;
+        min-height: 32px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    /* Better text sizing on mobile */
+    .flashcard-question {
+        font-size: 1.4rem;
+        line-height: 1.5;
+        padding: 0 0.5rem;
+    }
+
+    .flashcard-answer {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        padding: 0 0.5rem;
+    }
+
+    /* Swipe visual feedback */
+    .flashcard {
+        transition: transform 0.2s ease, opacity 0.2s ease;
     }
 }
 

@@ -4,6 +4,8 @@ function Renting() {
   const carouselWrapperRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   const rentingBoxes = [
     "Mysterious spikes and dips in your utility bills that you can't explain or control.",
@@ -23,6 +25,32 @@ function Renting() {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Swipe gesture handlers
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+  };
 
   // Calculate max index: showing cardsPerView at a time
   const cardsPerView = isMobile ? 1 : 2;
@@ -76,7 +104,13 @@ function Renting() {
             ‹
           </button>
           
-          <div className="carousel-wrapper" ref={carouselWrapperRef}>
+          <div 
+            className="carousel-wrapper" 
+            ref={carouselWrapperRef}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             <div 
               className="carousel-track"
               style={{ transform: `translateX(-${getTransformValue()}px)` }}
