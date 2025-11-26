@@ -1,41 +1,31 @@
-import { useState } from 'react'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 
 function AboutUs() {
   const aboutRef = useIntersectionObserver()
-  const [activeMember, setActiveMember] = useState(null)
 
   const teamMembers = [
     {
       name: 'Mia',
-      initials: 'M',
-      description: '...'
+      initials: 'M'
     },
     {
       name: 'Anushka',
-      initials: 'A',
-      description: '...'
+      initials: 'A'
     },
     {
       name: 'Awo',
       initials: 'A',
-      description: '...'
+      image: 'public/awo-photo.jpg' 
     },
     {
       name: 'Ethan',
-      initials: 'E',
-      description: '...'
+      initials: 'E'
     },
     {
       name: 'Eric',
-      initials: 'E',
-      description: '...'
+      initials: 'E'
     }
   ]
-
-  const handleMemberClick = (index) => {
-    setActiveMember(activeMember === index ? null : index)
-  }
 
   return (
     <section id="about" className="about" ref={aboutRef}>
@@ -133,24 +123,31 @@ function AboutUs() {
             {teamMembers.map((member, index) => (
               <div
                 key={index}
-                className={`team-member-card ${activeMember === index ? 'active' : ''}`}
-                onClick={() => handleMemberClick(index)}
-                onMouseEnter={() => setActiveMember(index)}
-                onMouseLeave={() => setActiveMember(null)}
+                className="team-member-card"
               >
                 <div className="team-member-avatar">
-                  <div className="avatar-circle">{member.initials}</div>
+                  {member.image ? (
+                    <img 
+                      src={member.image} 
+                      alt={member.name}
+                      className="avatar-image"
+                      onError={(e) => {
+                        // Fallback to initials if image fails to load
+                        e.target.style.display = 'none';
+                        const fallback = document.createElement('div');
+                        fallback.className = 'avatar-circle';
+                        fallback.textContent = member.initials;
+                        e.target.parentNode.appendChild(fallback);
+                      }}
+                    />
+                  ) : (
+                    <div className="avatar-circle">{member.initials}</div>
+                  )}
                 </div>
                 <div className="team-member-name">{member.name}</div>
-                {activeMember === index && (
-                  <div className="team-member-description">
-                    <p>{member.description}</p>
-                  </div>
-                )}
               </div>
             ))}
           </div>
-          <p className="team-hint">Hover or click on a team member to learn more!</p>
         </div>
       </div>
     </section>
