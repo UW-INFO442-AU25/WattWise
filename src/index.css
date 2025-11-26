@@ -200,6 +200,7 @@ nav {
         height: 100vh;
         min-height: 600px;
         padding: 1.5rem;
+        padding-top: 5rem;
         margin-top: 60px;
         background-attachment: scroll;
     }
