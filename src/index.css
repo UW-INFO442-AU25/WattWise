@@ -579,7 +579,6 @@ nav {
     width: 64px;
     height: 64px;
     margin: 0 auto 1rem auto;
-    animation: float 3s ease-in-out infinite;
 }
 
 .question-card:nth-child(2) .question-icon {
@@ -915,10 +914,32 @@ nav {
 .section-icon {
     font-size: 3rem;
     margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1.5rem auto;
+    position: relative;
+}
+
+/* Building Icon - matches question-icon style */
+.section-icon-building {
+    background: linear-gradient(135deg, rgba(107, 163, 199, 0.15) 0%, rgba(122, 184, 154, 0.15) 100%);
+    border-radius: 20px;
+}
+
+/* House Icon - matches question-icon style */
+.section-icon-house {
+    background: linear-gradient(135deg, rgba(107, 163, 199, 0.15) 0%, rgba(122, 184, 154, 0.15) 100%);
+    border-radius: 20px;
+}
+
+/* Icon SVG styling */
+.section-icon .icon-svg {
+    width: 100%;
+    height: 100%;
     display: block;
-    text-align: center;
-    opacity: 0.8;
-    transition: transform 0.3s ease;
 }
 
 
