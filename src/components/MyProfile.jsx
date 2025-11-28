@@ -119,19 +119,35 @@ function MyProfile() {
     <div className="profile-container">
       <h1 className="profile-title">My Profile</h1>
       <div className="profile-card">
-        {user.photoURL && (
+        {user.photoURL ? (
           <img 
             src={user.photoURL} 
             alt="Profile" 
             className="profile-photo"
           />
+        ) : (
+          <div className="profile-photo" style={{
+            background: 'linear-gradient(135deg, #6BA3C7 0%, #7AB89A 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            fontSize: '3rem',
+            fontWeight: '700'
+          }}>
+            {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
+          </div>
         )}
-        <p className="profile-info">
-          <strong>Name:</strong> {user.displayName || 'Not set'}
-        </p>
-        <p className="profile-info">
-          <strong>Email:</strong> {user.email}
-        </p>
+        <div className="profile-info">
+          <div className="profile-info-item">
+            <strong>Name:</strong>
+            <span>{user.displayName || 'Not set'}</span>
+          </div>
+          <div className="profile-info-item">
+            <strong>Email:</strong>
+            <span>{user.email}</span>
+          </div>
+        </div>
         <button
           onClick={handleSignOut}
           className="profile-signout-button"
