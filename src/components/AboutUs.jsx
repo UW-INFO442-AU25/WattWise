@@ -15,7 +15,7 @@ function AboutUs() {
     {
       name: 'Awo',
       initials: 'A',
-      image: 'public/awo-photo.jpg' //make sure to add the image to the public folder using the same titling 
+      image: '/awo-photo.jpg' //make sure to add the image to the public folder using the same titling 
     },
     {
       name: 'Ethan',
@@ -23,7 +23,8 @@ function AboutUs() {
     },
     {
       name: 'Eric',
-      initials: 'E'
+      initials: 'E',
+      image: '/eric-photo.jpg'
     }
   ]
 
