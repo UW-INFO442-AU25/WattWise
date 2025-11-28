@@ -6,7 +6,8 @@ function AboutUs() {
   const teamMembers = [
     {
       name: 'Mia',
-      initials: 'M'
+      initials: 'M',
+      image: '/mia-photo.jpg'
     },
     {
       name: 'Anushka',
@@ -15,7 +16,7 @@ function AboutUs() {
     {
       name: 'Awo',
       initials: 'A',
-      image: '/awo-photo.jpg' //make sure to add the image to the public folder using the same titling 
+      image: '/awo-photo.jpg' //make sure to add the image to the public folder using the same titling
     },
     {
       name: 'Ethan',
@@ -99,9 +100,9 @@ function AboutUs() {
         </div>
 
         <div className="sdg-highlight">
-          <a 
-            href="https://www.un.org/sustainabledevelopment/sustainable-consumption-production/" 
-            target="_blank" 
+          <a
+            href="https://www.un.org/sustainabledevelopment/sustainable-consumption-production/"
+            target="_blank"
             rel="noopener noreferrer"
             className="sdg-badge-link"
             title="Learn more about SDG 12 on the UN website"
@@ -128,8 +129,8 @@ function AboutUs() {
               >
                 <div className="team-member-avatar">
                   {member.image ? (
-                    <img 
-                      src={member.image} 
+                    <img
+                      src={member.image}
                       alt={member.name}
                       className="avatar-image"
                       onError={(e) => {
