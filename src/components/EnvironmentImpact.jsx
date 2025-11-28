@@ -109,7 +109,7 @@ function EnvironmentImpact() {
         <p className="flashcard-subtitle">
           Test your knowledge about household sustainability. Click each card to flip and learn!
         </p>
-        
+
         <div className="flashcard-wrapper">
           <Flashcard
             card={cards[currentIndex]}
@@ -131,7 +131,7 @@ function EnvironmentImpact() {
               <div className="definition-drag-handle"></div>
               <div className="definition-header">
                 <span className="definition-term">{activeDefinition.term}</span>
-                <button 
+                <button
                   className="definition-close"
                   onClick={closeDefinition}
                   aria-label="Close definition"
@@ -153,6 +153,62 @@ function EnvironmentImpact() {
           totalCards={cards.length}
         />
       </div>
+{/* Video Introduction */}
+<div
+  style={{
+    textAlign: 'center',
+    marginTop: '2.5rem',
+    padding: '0 1rem'
+  }}
+>
+  <h3
+    style={{
+      fontSize: '1.6rem',
+      fontWeight: '600',
+      marginBottom: '0.75rem'
+    }}
+  >
+    Learn About the Environmental Impact of Home Energy
+  </h3>
+
+  <p
+    style={{
+      maxWidth: '700px',
+      margin: '0 auto 2rem auto',
+      lineHeight: '1.6',
+      fontSize: '1rem',
+      color: '#444'
+    }}
+  >
+    This short video breaks down how everyday home appliances contribute to overall energy use,
+    and why small changes in your daily habits can significantly reduce your carbon footprint.
+    If you're a homeowner wondering where most of your energy goes, this is a great place to start.
+  </p>
+
+  {/* Simple container without padding hack */}
+  <div
+    style={{
+      width: '100%',
+      maxWidth: '600px',
+      margin: '0 auto'
+    }}
+  >
+    <iframe
+      src="https://www.youtube.com/embed/MGvPLRan_nM"
+      title="YouTube video player"
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+      style={{
+        display: 'block',
+        width: '100%',
+        height: '338px', // 16:9 for 600px width (600 * 9/16 = 337.5)
+        borderRadius: '12px'
+      }}
+    ></iframe>
+  </div>
+</div>
+
     </section>
   );
 }

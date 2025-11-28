@@ -129,7 +129,7 @@ nav {
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    text-align: center; 
+    text-align: center;
 }
 
 .team h3 {
@@ -144,7 +144,7 @@ nav {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    justify-content: center; 
+    justify-content: center;
 }
 
 .team-member {
@@ -152,10 +152,10 @@ nav {
     padding: 0.6rem 1.2rem;
     border-radius: 20px;
     font-size: 0.95rem;
-    display: inline-flex;     
-    align-items: center;       
-    justify-content: center;   
-    text-align: center;        
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     min-width: 120px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
