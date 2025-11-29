@@ -158,7 +158,7 @@ function QuizResults() {
           textAlign: 'center'
         }}>
           <p style={{ fontSize: '1.2rem', color: '#2F3A3D', marginBottom: '1.5rem', fontWeight: '600' }}>
-            Want to save your quiz results so you don't lose them?
+            Want to save your results and view checklist? Log in!
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link 
@@ -227,6 +227,45 @@ function QuizResults() {
           <p style={{ fontSize: '1.1rem', color: '#2F3A3D', fontWeight: '600' }}>
             ✓ Your quiz results have been saved to your profile!
           </p>
+        </div>
+      )}
+
+      {/* View Checklist Prompt - Show if user is logged in */}
+      {!authLoading && user && (
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(127, 175, 202, 0.1) 0%, rgba(123, 168, 143, 0.1) 100%)',
+          padding: '2rem',
+          borderRadius: '15px',
+          border: '2px solid #7FAFCA',
+          marginBottom: '3rem',
+          textAlign: 'center'
+        }}>
+          <p style={{ fontSize: '1.2rem', color: '#2F3A3D', marginBottom: '1.5rem', fontWeight: '600' }}>
+            Want to take action?
+          </p>
+          <Link
+            to="/profile?view=checklist"
+            style={{
+              display: 'inline-block',
+              padding: '0.75rem 2rem',
+              background: 'linear-gradient(135deg, #7FAFCA 0%, #7BA88F 100%)',
+              color: 'white',
+              textDecoration: 'none',
+              borderRadius: '50px',
+              fontSize: '1.1rem',
+              fontWeight: 'bold',
+              transition: 'transform 0.3s, box-shadow 0.3s'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-3px)'
+              e.currentTarget.style.boxShadow = '0 10px 25px rgba(127, 175, 202, 0.4)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)'
+              e.currentTarget.style.boxShadow = 'none'
+            }}>
+            View checklist!
+          </Link>
         </div>
       )}
 

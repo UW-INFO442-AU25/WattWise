@@ -132,3 +132,44 @@ export async function getLatestQuizResults(userId) {
   }
 }
 
+/**
+ * Save checklist progress for a user
+ * @param {string} userId - The user's Firebase Auth UID
+ * @param {Object} checkedItems - Object mapping item indices to checked state
+ */
+export async function saveChecklistProgress(userId, checkedItems) {
+  try {
+    const userRef = doc(db, 'users', userId)
+    await updateDoc(userRef, {
+      checklistProgress: checkedItems,
+      checklistUpdatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    })
+    console.log('Checklist progress saved successfully')
+  } catch (error) {
+    console.error('Error saving checklist progress:', error)
+    throw error
+  }
+}
+
+/**
+ * Get checklist progress for a user
+ * @param {string} userId - The user's Firebase Auth UID
+ * @returns {Object|null} Checklist progress object or null
+ */
+export async function getChecklistProgress(userId) {
+  try {
+    const userRef = doc(db, 'users', userId)
+    const userSnap = await getDoc(userRef)
+    
+    if (userSnap.exists()) {
+      const userData = userSnap.data()
+      return userData.checklistProgress || null
+    }
+    return null
+  } catch (error) {
+    console.error('Error getting checklist progress:', error)
+    throw error
+  }
+}
+

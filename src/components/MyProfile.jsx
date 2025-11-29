@@ -1,15 +1,22 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useSearchParams } from 'react-router-dom'
 import { signOut } from 'firebase/auth'
 import { auth } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import { getLatestQuizResults } from '../services/userService'
+import Checklist from './Checklist'
 
 function MyProfile() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { user, loading: authLoading } = useAuth()
   const [quizResults, setQuizResults] = useState(null)
   const [loadingQuiz, setLoadingQuiz] = useState(true)
+  // Check URL params for initial view mode (default to 'results')
+  const [viewMode, setViewMode] = useState(() => {
+    const view = searchParams.get('view')
+    return view === 'checklist' ? 'checklist' : 'results'
+  })
 
   useEffect(() => {
     if (!authLoading) {
@@ -156,12 +163,30 @@ function MyProfile() {
         </button>
       </div>
       
-      {/* Quiz Results Section */}
+      {/* Quiz Results / Checklist Section */}
       {quizResults && results.length > 0 ? (
         <div className="profile-quiz-results">
-          <h2 className="profile-title profile-quiz-results-title">
-            Your Quiz Results
-          </h2>
+          {/* Toggle between Results and Checklist */}
+          <div className="profile-view-toggle">
+            <button
+              className={`profile-toggle-button ${viewMode === 'results' ? 'active' : ''}`}
+              onClick={() => setViewMode('results')}
+            >
+              Quiz Results
+            </button>
+            <button
+              className={`profile-toggle-button ${viewMode === 'checklist' ? 'active' : ''}`}
+              onClick={() => setViewMode('checklist')}
+            >
+              Checklist
+            </button>
+          </div>
+
+          {viewMode === 'results' ? (
+            <>
+              <h2 className="profile-title profile-quiz-results-title">
+                Your Quiz Results
+              </h2>
           {quizResults.completedAt && (
             <p className="profile-quiz-date">
               Completed on {new Date(quizResults.completedAt).toLocaleDateString('en-US', {
@@ -227,15 +252,24 @@ function MyProfile() {
             ))}
           </div>
 
-          {/* Action Button */}
-          <div className="profile-quiz-actions">
-            <Link
-              to="/quiz"
-              className="cta-button"
-            >
-              Retake Quiz
-            </Link>
-          </div>
+              {/* Action Button */}
+              <div className="profile-quiz-actions">
+                <Link
+                  to="/quiz"
+                  className="cta-button"
+                >
+                  Retake Quiz
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <h2 className="profile-title profile-quiz-results-title">
+                Your Action Checklist
+              </h2>
+              <Checklist results={results} quizAnswers={quizResults?.quizAnswers || {}} />
+            </>
+          )}
         </div>
       ) : (
         <div className="profile-no-quiz">
