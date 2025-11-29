@@ -289,7 +289,7 @@ function Checklist({ results = [], quizAnswers = {} }) {
         {Object.entries(categorized).map(([category, items]) => (
           <div key={category} className="checklist-category-card">
             <h3 className="checklist-category-title">
-              <span className="checklist-category-icon">{categoryIcons[category] || '📋'}</span>
+              <span className="checklist-category-icon" aria-hidden="true">{categoryIcons[category] || '📋'}</span>
               {category}
             </h3>
             <ul className="checklist-category-list">
@@ -308,9 +308,10 @@ function Checklist({ results = [], quizAnswers = {} }) {
                         onClick={() => handleStatusChange(index)}
                         className={`checklist-status-button checklist-status-${status}`}
                         disabled={!user}
+                        aria-label={`${action}. Current status: ${STATUS_LABELS[status]}. Click to change to ${STATUS_LABELS[STATUSES[(STATUSES.indexOf(status) + 1) % STATUSES.length]]}`}
                         title={`Click to cycle: ${STATUS_LABELS[status]} → ${STATUS_LABELS[STATUSES[(STATUSES.indexOf(status) + 1) % STATUSES.length]]}`}
                       >
-                        <span className="checklist-status-icon">{STATUS_ICONS[status]}</span>
+                        <span className="checklist-status-icon" aria-hidden="true">{STATUS_ICONS[status]}</span>
                         <span className="checklist-status-label">{STATUS_LABELS[status]}</span>
                       </button>
                     </div>

@@ -153,7 +153,7 @@ function Login() {
         </div>
 
         {error && (
-          <div className="auth-error">
+          <div className="auth-error" role="alert" aria-live="polite">
             {error}
           </div>
         )}
@@ -180,6 +180,7 @@ function Login() {
           onClick={handleGoogleSignIn}
           disabled={loading || googleLoading}
           className="auth-google-button"
+          aria-label="Sign in with Google"
           style={{
             opacity: (loading || googleLoading) ? 0.7 : 1
           }}

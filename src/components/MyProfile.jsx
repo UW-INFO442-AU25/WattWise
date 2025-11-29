@@ -158,6 +158,7 @@ function MyProfile() {
         <button
           onClick={handleSignOut}
           className="profile-signout-button"
+          aria-label="Sign out of your account"
         >
           Sign Out
         </button>
@@ -167,23 +168,31 @@ function MyProfile() {
       {quizResults && results.length > 0 ? (
         <div className="profile-quiz-results">
           {/* Toggle between Results and Checklist */}
-          <div className="profile-view-toggle">
+          <div className="profile-view-toggle" role="tablist" aria-label="View mode selector">
             <button
               className={`profile-toggle-button ${viewMode === 'results' ? 'active' : ''}`}
               onClick={() => setViewMode('results')}
+              role="tab"
+              aria-selected={viewMode === 'results'}
+              aria-controls="quiz-results-panel"
+              id="results-tab"
             >
               Quiz Results
             </button>
             <button
               className={`profile-toggle-button ${viewMode === 'checklist' ? 'active' : ''}`}
               onClick={() => setViewMode('checklist')}
+              role="tab"
+              aria-selected={viewMode === 'checklist'}
+              aria-controls="checklist-panel"
+              id="checklist-tab"
             >
               Checklist
             </button>
           </div>
 
           {viewMode === 'results' ? (
-            <>
+            <div role="tabpanel" id="quiz-results-panel" aria-labelledby="results-tab">
               <h2 className="profile-title profile-quiz-results-title">
                 Your Quiz Results
               </h2>
@@ -228,7 +237,7 @@ function MyProfile() {
             {Object.entries(categorized).map(([category, recs]) => (
               <div key={category} className="profile-quiz-category-card">
                 <h3 className="profile-quiz-category-title">
-                  <span className="profile-quiz-category-icon">{categoryIcons[category] || '📋'}</span>
+                  <span className="profile-quiz-category-icon" aria-hidden="true">{categoryIcons[category] || '📋'}</span>
                   {category}
                 </h3>
                 <ul className="profile-quiz-category-list">
@@ -261,14 +270,14 @@ function MyProfile() {
                   Retake Quiz
                 </Link>
               </div>
-            </>
+            </div>
           ) : (
-            <>
+            <div role="tabpanel" id="checklist-panel" aria-labelledby="checklist-tab">
               <h2 className="profile-title profile-quiz-results-title">
                 Your Action Checklist
               </h2>
               <Checklist results={results} quizAnswers={quizResults?.quizAnswers || {}} />
-            </>
+            </div>
           )}
         </div>
       ) : (

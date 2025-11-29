@@ -52,8 +52,9 @@ function Navbar() {
 
   return (
     <>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <nav>
-        <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>WattWise</Link>
+        <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }} aria-label="WattWise Home">WattWise</Link>
         <button 
           className="hamburger-menu"
           onClick={toggleMenu}

@@ -208,8 +208,8 @@ function computeRecs(answers) {
         <form onSubmit={handleSubmit}>
         {/* STEP: Goals */}
         {currentStep === 'goals' && (
-            <div style={{ marginBottom: '1.5rem' }}>
-            <h3>What are your goals?</h3>
+            <fieldset style={{ marginBottom: '1.5rem', border: 'none', padding: 0 }}>
+            <legend style={{ fontSize: '1.2rem', fontWeight: '600', marginBottom: '1rem' }}>What are your goals?</legend>
             <label style={{ display: 'block' }}>
                 <input
                 type="radio"
@@ -230,16 +230,18 @@ function computeRecs(answers) {
                 />{' '}
                 Discover new environmentally-focused solutions
             </label>
-            </div>
+            </fieldset>
         )}
 
         {/* STEP: Household type */}
         {currentStep === 'householdType' && (
             <div style={{ marginBottom: '1.5rem' }}>
-            <h3>What type of household do you own?</h3>
+            <h3 id="household-type-label">What type of household do you own?</h3>
             <select
                 value={answers.householdType}
                 onChange={(e) => handleChange('householdType', e.target.value)}
+                aria-labelledby="household-type-label"
+                aria-required="true"
             >
                 <option value="">Select one</option>
                 <option value="townhouse">Townhouse</option>
@@ -252,21 +254,25 @@ function computeRecs(answers) {
         {/* STEP: Household size */}
         {currentStep === 'householdSize' && (
             <div style={{ marginBottom: '1.5rem' }}>
-            <h3>How many people live in your household?</h3>
-            <input
-                type="number"
-                min="1"
-                value={answers.householdSize}
-                onChange={(e) => handleChange('householdSize', e.target.value)}
-                placeholder="e.g. 3"
-            />
+            <label htmlFor="household-size-input">
+              <h3 style={{ marginBottom: '0.5rem' }}>How many people live in your household?</h3>
+              <input
+                  type="number"
+                  id="household-size-input"
+                  min="1"
+                  value={answers.householdSize}
+                  onChange={(e) => handleChange('householdSize', e.target.value)}
+                  placeholder="e.g. 3"
+                  aria-required="true"
+              />
+            </label>
             </div>
         )}
 
         {/* STEP: Appliance usage */}
         {currentStep === 'applianceUsage' && (
-            <div style={{ marginBottom: '1.5rem' }}>
-            <h3>How many large appliances do you use in a given day?</h3>
+            <fieldset style={{ marginBottom: '1.5rem', border: 'none', padding: 0 }}>
+            <legend style={{ fontSize: '1.2rem', fontWeight: '600', marginBottom: '1rem' }}>How many large appliances do you use in a given day?</legend>
             <label style={{ display: 'block' }}>
                 <input
                 type="radio"
@@ -297,13 +303,13 @@ function computeRecs(answers) {
                 />{' '}
                 All modern appliances (consoles, fans/AC, extra lighting, cooking appliances)
             </label>
-            </div>
+            </fieldset>
         )}
 
         {/* STEP: Phantom load */}
         {currentStep === 'phantom' && (
-            <div style={{ marginBottom: '1.5rem' }}>
-            <h3>How often do you leave appliances plugged in?</h3>
+            <fieldset style={{ marginBottom: '1.5rem', border: 'none', padding: 0 }}>
+            <legend style={{ fontSize: '1.2rem', fontWeight: '600', marginBottom: '1rem' }}>How often do you leave appliances plugged in?</legend>
             <label style={{ display: 'block' }}>
                 <input
                 type="radio"
@@ -334,13 +340,13 @@ function computeRecs(answers) {
                 />{' '}
                 Never
             </label>
-            </div>
+            </fieldset>
         )}
 
         {/* STEP: Lighting type */}
         {currentStep === 'lighting' && (
-            <div style={{ marginBottom: '1.5rem' }}>
-            <h3>What kind of lighting do you use?</h3>
+            <fieldset style={{ marginBottom: '1.5rem', border: 'none', padding: 0 }}>
+            <legend style={{ fontSize: '1.2rem', fontWeight: '600', marginBottom: '1rem' }}>What kind of lighting do you use?</legend>
             <label style={{ display: 'block' }}>
                 <input
                 type="radio"
@@ -381,16 +387,17 @@ function computeRecs(answers) {
                 />{' '}
                 A mix
             </label>
-            </div>
+            </fieldset>
         )}
 
         {/* STEP: Bulb count */}
         {currentStep === 'bulbCount' && (
             <div style={{ marginBottom: '1.5rem' }}>
-            <h3>How many bulbs do you think you have in the house?</h3>
+            <h3 id="bulb-count-label">How many bulbs do you think you have in the house?</h3>
             <select
                 value={answers.bulbCount}
                 onChange={(e) => handleChange('bulbCount', e.target.value)}
+                aria-labelledby="bulb-count-label"
             >
                 <option value="">Select one</option>
                 <option value="lt10">&lt; 10</option>
@@ -405,21 +412,24 @@ function computeRecs(answers) {
         {/* STEP: Oven usage */}
         {currentStep === 'ovenMinutesPerWeek' && (
             <div style={{ marginBottom: '1.5rem' }}>
-            <h3>How often do you use your oven? (minutes per week)</h3>
-            <input
-                type="number"
-                min="0"
-                value={answers.ovenMinutesPerWeek}
-                onChange={(e) => handleChange('ovenMinutesPerWeek', e.target.value)}
-                placeholder="e.g. 45"
-            />
+            <label htmlFor="oven-minutes-input">
+              <h3 style={{ marginBottom: '0.5rem' }}>How often do you use your oven? (minutes per week)</h3>
+              <input
+                  type="number"
+                  id="oven-minutes-input"
+                  min="0"
+                  value={answers.ovenMinutesPerWeek}
+                  onChange={(e) => handleChange('ovenMinutesPerWeek', e.target.value)}
+                  placeholder="e.g. 45"
+              />
+            </label>
             </div>
         )}
 
         {/* STEP: Washer / dishwasher */}
         {currentStep === 'washerFrequency' && (
-            <div style={{ marginBottom: '1.5rem' }}>
-            <h3>How often do you use your washing machine or dishwasher?</h3>
+            <fieldset style={{ marginBottom: '1.5rem', border: 'none', padding: 0 }}>
+            <legend style={{ fontSize: '1.2rem', fontWeight: '600', marginBottom: '1rem' }}>How often do you use your washing machine or dishwasher?</legend>
             <label style={{ display: 'block' }}>
                 <input
                 type="radio"
@@ -450,16 +460,17 @@ function computeRecs(answers) {
                 />{' '}
                 4+ times a week
             </label>
-            </div>
+            </fieldset>
         )}
 
         {/* STEP: Heating type */}
         {currentStep === 'heatingType' && (
             <div style={{ marginBottom: '1.5rem' }}>
-            <h3>What type of heating do you primarily use?</h3>
+            <h3 id="heating-type-label">What type of heating do you primarily use?</h3>
             <select
                 value={answers.heatingType}
                 onChange={(e) => handleChange('heatingType', e.target.value)}
+                aria-labelledby="heating-type-label"
             >
                 <option value="">Select one</option>
                 <option value="electric">Electric heater</option>
@@ -473,15 +484,19 @@ function computeRecs(answers) {
         {/* STEP: Shower + low-flow */}
         {currentStep === 'shower' && (
             <div style={{ marginBottom: '1.5rem' }}>
-            <h3>How long do you typically shower? (minutes per day)</h3>
-            <input
-                type="number"
-                min="0"
-                value={answers.showerMinutes}
-                onChange={(e) => handleChange('showerMinutes', e.target.value)}
-                placeholder="e.g. 10"
-            />
-            <h4 style={{ marginTop: '0.5rem' }}>Do you own a low-flow shower head?</h4>
+            <label htmlFor="shower-minutes-input">
+              <h3 style={{ marginBottom: '0.5rem' }}>How long do you typically shower? (minutes per day)</h3>
+              <input
+                  type="number"
+                  id="shower-minutes-input"
+                  min="0"
+                  value={answers.showerMinutes}
+                  onChange={(e) => handleChange('showerMinutes', e.target.value)}
+                  placeholder="e.g. 10"
+              />
+            </label>
+            <fieldset style={{ marginTop: '1rem', border: 'none', padding: 0 }}>
+              <legend style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>Do you own a low-flow shower head?</legend>
             <label style={{ display: 'block' }}>
                 <input
                 type="radio"
@@ -502,13 +517,14 @@ function computeRecs(answers) {
                 />{' '}
                 No
             </label>
+            </fieldset>
             </div>
         )}
 
         {/* STEP: Smart power strips */}
         {currentStep === 'smartPowerStrips' && (
-            <div style={{ marginBottom: '1.5rem' }}>
-            <h3>Do you own and use Smart Power Strips?</h3>
+            <fieldset style={{ marginBottom: '1.5rem', border: 'none', padding: 0 }}>
+            <legend style={{ fontSize: '1.2rem', fontWeight: '600', marginBottom: '1rem' }}>Do you own and use Smart Power Strips?</legend>
             <label style={{ display: 'block' }}>
                 <input
                 type="radio"
@@ -539,13 +555,13 @@ function computeRecs(answers) {
                 />{' '}
                 Not sure
             </label>
-            </div>
+            </fieldset>
         )}
 
         {/* STEP: Eco-conscious */}
         {currentStep === 'ecoConscious' && (
-            <div style={{ marginBottom: '1.5rem' }}>
-            <h3>How often are you conscious about saving water and energy?</h3>
+            <fieldset style={{ marginBottom: '1.5rem', border: 'none', padding: 0 }}>
+            <legend style={{ fontSize: '1.2rem', fontWeight: '600', marginBottom: '1rem' }}>How often are you conscious about saving water and energy?</legend>
             <label style={{ display: 'block' }}>
                 <input
                 type="radio"
@@ -576,7 +592,7 @@ function computeRecs(answers) {
                 />{' '}
                 Rarely
             </label>
-            </div>
+            </fieldset>
         )}
 
         {/* Navigation buttons */}
@@ -602,11 +618,20 @@ function computeRecs(answers) {
             </button>
 
             {isLastStep ? (
-            <button type="submit" className="cta-button">
+            <button 
+              type="submit" 
+              className="cta-button"
+              aria-label="Submit quiz and see results"
+            >
                 See my savings opportunities
             </button>
             ) : (
-            <button type="button" className="cta-button" onClick={handleNext}>
+            <button 
+              type="button" 
+              className="cta-button" 
+              onClick={handleNext}
+              aria-label="Go to next question"
+            >
                 Next
             </button>
             )}

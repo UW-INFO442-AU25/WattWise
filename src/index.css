@@ -1,3 +1,20 @@
+/* Skip to main content link for keyboard navigation */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #7FAFCA;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 10000;
+    border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -423,6 +440,15 @@ nav {
     border-color: rgba(255, 255, 255, 0.6);
     transform: translateY(-4px) scale(1.02);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.learn-more-button:focus {
+    outline: 3px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 3px;
+}
+
+.learn-more-button:focus:not(:focus-visible) {
+    outline: none;
 }
 
 .scroll-indicator {
@@ -1869,6 +1895,15 @@ nav {
     background: linear-gradient(135deg, #5B93B7 0%, #6AA88A 100%);
 }
 
+.cta-button:focus {
+    outline: 3px solid #7FAFCA;
+    outline-offset: 3px;
+}
+
+.cta-button:focus:not(:focus-visible) {
+    outline: none;
+}
+
 /* Journey Connector - Add between sections */
 .journey-connector {
     text-align: center;
@@ -2071,7 +2106,8 @@ nav {
 }
 
 .auth-input:focus {
-    outline: none;
+    outline: 2px solid #7FAFCA;
+    outline-offset: 2px;
     border-color: #7FAFCA;
 }
 
@@ -2131,6 +2167,16 @@ nav {
 .auth-google-button:hover:not(:disabled) {
     border-color: #7FAFCA;
     background: #f5f5f5;
+}
+
+.auth-google-button:focus {
+    outline: 3px solid #7FAFCA;
+    outline-offset: 3px;
+    border-color: #7FAFCA;
+}
+
+.auth-google-button:focus:not(:focus-visible) {
+    outline: none;
 }
 
 .auth-google-button:disabled {
@@ -2253,6 +2299,15 @@ nav {
     background: linear-gradient(135deg, #5B8FA8 0%, #6BA3C7 100%);
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(107, 163, 199, 0.35);
+}
+
+.profile-signout-button:focus {
+    outline: 3px solid #7FAFCA;
+    outline-offset: 3px;
+}
+
+.profile-signout-button:focus:not(:focus-visible) {
+    outline: none;
 }
 
 .profile-signout-button:active {
@@ -2477,6 +2532,10 @@ nav {
     animation: fadeIn 0.2s ease-out;
 }
 
+.modal-overlay:focus {
+    outline: none;
+}
+
 .modal-content {
     background: white;
     border-radius: 20px;
@@ -2519,6 +2578,15 @@ nav {
     cursor: pointer;
     transition: all 0.3s;
     min-width: 140px;
+}
+
+.modal-button:focus {
+    outline: 3px solid #7FAFCA;
+    outline-offset: 3px;
+}
+
+.modal-button:focus:not(:focus-visible) {
+    outline: none;
 }
 
 .modal-button-cancel {
@@ -2762,6 +2830,15 @@ nav {
 .checklist-status-button:disabled {
     cursor: not-allowed;
     opacity: 0.5;
+}
+
+.checklist-status-button:focus {
+    outline: 3px solid #7FAFCA;
+    outline-offset: 3px;
+}
+
+.checklist-status-button:focus:not(:focus-visible) {
+    outline: none;
 }
 
 .checklist-status-not-started {

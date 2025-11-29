@@ -88,14 +88,14 @@ function Renting() {
       <div className="renting-content">
         <div className="text-center mb-5">
           <div className="section-icon section-icon-building">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon-svg">
-              <path d="M3 21H21" stroke="url(#rentingBuildingGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M5 21V7L13 2V21" stroke="url(#rentingBuildingGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M19 21V11L13 7" stroke="url(#rentingBuildingGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M9 9V9.01" stroke="url(#rentingBuildingGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M9 12V12.01" stroke="url(#rentingBuildingGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M9 15V15.01" stroke="url(#rentingBuildingGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M9 18V18.01" stroke="url(#rentingBuildingGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon-svg" aria-hidden="true">
+              <path d="M3 21H21" stroke="url(#rentingBuildingGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M5 21V7L13 2V21" stroke="url(#rentingBuildingGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M19 21V11L13 7" stroke="url(#rentingBuildingGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M9 9V9.01" stroke="url(#rentingBuildingGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M9 12V12.01" stroke="url(#rentingBuildingGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M9 15V15.01" stroke="url(#rentingBuildingGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M9 18V18.01" stroke="url(#rentingBuildingGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               <defs>
                 <linearGradient id="rentingBuildingGradient" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
                   <stop offset="0%" stopColor="#6BA3C7"/>

@@ -211,7 +211,7 @@ function Register() {
         </div>
 
         {error && (
-          <div className="auth-error">
+          <div className="auth-error" role="alert" aria-live="polite">
             {error}
           </div>
         )}
@@ -238,6 +238,7 @@ function Register() {
           onClick={handleGoogleSignIn}
           disabled={loading || googleLoading}
           className="auth-google-button"
+          aria-label="Sign up with Google"
           style={{
             opacity: (loading || googleLoading) ? 0.7 : 1
           }}
