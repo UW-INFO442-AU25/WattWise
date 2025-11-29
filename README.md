@@ -7,7 +7,7 @@ Mia McDunnah, Anushka Verma, Awo Mah, Ethan Kwan, Eric Chou
 How might we empower Washington homeowners to better understand and act on the financial savings and environmental benefits of optimizing their utility usage? 
 
 
-Homeowners in Washington often lack awareness of how everyday utility behaviors—like leaving appliances plugged in, running inefficient lightbulbs, and misjudging the energy cost of activities such as dishwashing and lighting—drive both higher bills and unnecessary emissions. Research shows people consistently underestimate energy use and potential savings by about threefold (Attari et al., 2010), which skews perceptions toward “inconvenient” actions rather than simple efficiency upgrades.The project centers on SDG 12, "Responsible Consumption and Production," and aims to educate residents on practical, low-friction changes (e.g., switching to power‑saving bulbs, unplugging idle devices) that optimize electricity and water usage, reduce environmental impact, and deliver tangible financial benefits.
+Homeowners in Washington often lack awareness of how everyday utility behaviors—like leaving appliances plugged in, running inefficient lightbulbs, and misjudging the energy cost of activities such as dishwashing and lighting—drive both higher bills and unnecessary emissions. Research shows people consistently underestimate energy use and potential savings by about threefold (Attari et al., 2010), which skews perceptions toward "inconvenient" actions rather than simple efficiency upgrades. The project centers on SDG 12, "Responsible Consumption and Production," and aims to educate residents on practical, low-friction changes (e.g., switching to power‑saving bulbs, unplugging idle devices) that optimize electricity and water usage, reduce environmental impact, and deliver tangible financial benefits.
 
 ## Features
 ### Core functionality
@@ -21,7 +21,7 @@ Homeowners in Washington often lack awareness of how everyday utility behaviors�
 
 ## User Personas
 
-### Persona 1: Aja Williams - First-Time Homeowner
+### Persona 1: Aja Wilson - First-Time Homeowner
 **Demographics:**
 - Age: 32
 - Location: Bellevue, Washington
@@ -30,7 +30,7 @@ Homeowners in Washington often lack awareness of how everyday utility behaviors�
 - Income: $95,000/year
 
 **Background:**
-Sarah and her partner recently purchased their first home—a 1,200 sq ft townhouse built in 1995. Coming from a rental where utilities were included, Sarah is now facing her first utility bills and is surprised by how high they are. She's environmentally conscious and wants to reduce both her carbon footprint and monthly expenses, but she's overwhelmed by the amount of information available online and doesn't know where to start.
+Aja and her partner recently purchased their first home—a 1,200 sq ft townhouse built in 1995. Coming from a rental where utilities were included, Aja is now facing her first utility bills and is surprised by how high they are. She's environmentally conscious and wants to reduce both her carbon footprint and monthly expenses, but she's overwhelmed by the amount of information available online and doesn't know where to start.
 
 **Goals:**
 - Understand which energy-saving actions will have the biggest impact
@@ -51,7 +51,7 @@ Sarah and her partner recently purchased their first home—a 1,200 sq ft townho
 - Expects clean, intuitive interfaces
 
 **How WattWise Helps:**
-Sarah takes the quiz and discovers that her old incandescent bulbs and phantom energy from plugged-in devices are her biggest energy drains. The checklist helps her prioritize: first switching to LED bulbs (quick win), then installing smart power strips. She tracks her progress and sees her estimated annual savings increase as she completes items.
+Aja takes the quiz and discovers that her old incandescent bulbs and phantom energy from plugged-in devices are her biggest energy drains. The checklist helps her prioritize: first switching to LED bulbs (quick win), then installing smart power strips. She tracks her progress and sees her estimated annual savings increase as she completes items.
 
 ---
 
