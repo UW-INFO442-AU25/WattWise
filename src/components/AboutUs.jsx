@@ -1,4 +1,4 @@
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 function AboutUs() {
   const aboutRef = useIntersectionObserver()
@@ -19,7 +19,8 @@ function AboutUs() {
     },
     {
       name: 'Ethan',
-      initials: 'E'
+      initials: 'E',
+      image: 'public/ethan-photo.jpg'
     },
     {
       name: 'Eric',
