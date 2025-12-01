@@ -49,7 +49,7 @@ function computeRecs(answers) {
     // oven usage
     if (answers.ovenMinutesPerWeek && Number(answers.ovenMinutesPerWeek) > 60) {
     const msg =
-        'You use your oven a lot — try a toaster oven for small tasks or models with better insulation.'
+        'Using your oven for 60 minutes or more weekly can contribute to higher energy consumption and bills  — try a toaster oven for small tasks or models with better insulation.'
     console.log('Adding rec (oven):', msg)
     recs.push(msg)
     }
@@ -72,8 +72,8 @@ function computeRecs(answers) {
 
     // shower + low flow
     if (answers.showerMinutes && answers.lowFlow === 'no') {
-    const currentShowerUsage = answers.showerMinutes * 2.0 * 365 // minutes * GPM * days
-    const reducedShowerUsage = answers.showerMinutes * 1.5 * 365
+    const currentShowerUsage = answers.showerMinutes * 2.0 * 52 // minutes * GPM * weeks
+    const reducedShowerUsage = answers.showerMinutes * 1.5 * 52
     const estShowerSavings = currentShowerUsage - reducedShowerUsage
 
     // water savings
@@ -273,7 +273,7 @@ function computeRecs(answers) {
             {/* APPLIANCES */}
             {currentStep === 'applianceUsage' && (
                 <div>
-                <h3>How many appliances do you use daily?</h3>
+                <h3>How many appliances does your household use daily?</h3>
                 <label><input type="radio" checked={answers.applianceUsage === 'essentials'}
                     onChange={() => handleChange('applianceUsage', 'essentials')} /> Essentials only</label><br/>
                 <label><input type="radio" checked={answers.applianceUsage === 'some'}
@@ -286,7 +286,7 @@ function computeRecs(answers) {
             {/* PHANTOM LOAD */}
             {currentStep === 'phantom' && (
                 <div>
-                <h3>Do you leave devices plugged in?</h3>
+                <h3>How often does your household leave devices plugged in?</h3>
                 <label><input type="radio" checked={answers.phantom === 'always'}
                     onChange={() => handleChange('phantom', 'always')} /> Always</label><br/>
                 <label><input type="radio" checked={answers.phantom === 'sometimes'}
@@ -307,14 +307,16 @@ function computeRecs(answers) {
                 <label><input type="radio" checked={answers.lighting === 'incandescent'}
                     onChange={() => handleChange('lighting', 'incandescent')} /> Incandescent</label><br/>
                 <label><input type="radio" checked={answers.lighting === 'mix'}
-                    onChange={() => handleChange('lighting', 'mix')} /> Mix</label>
+                    onChange={() => handleChange('lighting', 'mix')} /> Mix</label><br/>
+                <label><input type="radio" checked={answers.lighting === 'unsure'}
+                    onChange={() => handleChange('lighting', 'unsure')} /> Unsure</label>
                 </div>
             )}
 
             {/* BULBS */}
             {currentStep === 'bulbCount' && (
                 <div>
-                <h3>How many bulbs?</h3>
+                <h3>How many light bulbs in your household are commonly used?</h3>
                 <select value={answers.bulbCount}
                     onChange={e => handleChange('bulbCount', e.target.value)}>
                     <option value="">Select</option>
@@ -330,7 +332,7 @@ function computeRecs(answers) {
             {/* OVEN */}
             {currentStep === 'ovenMinutesPerWeek' && (
                 <div>
-                <h3>Minutes using oven per week?</h3>
+                <h3>How many minutes does your household use a kitchen oven per week?</h3>
                 <input type="number" value={answers.ovenMinutesPerWeek}
                     onChange={e => handleChange('ovenMinutesPerWeek', e.target.value)} />
                 </div>
@@ -339,7 +341,9 @@ function computeRecs(answers) {
             {/* WASHER */}
             {currentStep === 'washerFrequency' && (
                 <div>
-                <h3>How often do you run laundry/dishwasher?</h3>
+                <h3>How often does your household run the laundry machine/dishwasher?</h3>
+                <label><input type="radio" checked={answers.washerFrequency === '1'}
+                    onChange={() => handleChange('washerFrequency', '0')} /> Never/Rarely</label><br/>
                 <label><input type="radio" checked={answers.washerFrequency === '1'}
                     onChange={() => handleChange('washerFrequency', '1')} /> Once</label><br/>
                 <label><input type="radio" checked={answers.washerFrequency === '2-3'}
@@ -352,7 +356,7 @@ function computeRecs(answers) {
             {/* HEATING */}
             {currentStep === 'heatingType' && (
                 <div>
-                <h3>Heating type</h3>
+                <h3>What is your household's heating type?</h3>
                 <select value={answers.heatingType}
                     onChange={e => handleChange('heatingType', e.target.value)}>
                     <option value="">Select</option>
@@ -360,6 +364,7 @@ function computeRecs(answers) {
                     <option value="gas">Gas</option>
                     <option value="heat-pump">Heat pump</option>
                     <option value="other">Other</option>
+                    <option value="unsure">Unsure</option>
                 </select>
                 </div>
             )}
@@ -367,14 +372,16 @@ function computeRecs(answers) {
             {/* SHOWER */}
             {currentStep === 'shower' && (
                 <div>
-                <h3>Shower length</h3>
+                <h3>How many minutes does your household use the shower each week?</h3>
                 <input type="number" value={answers.showerMinutes}
                     onChange={e => handleChange('showerMinutes', e.target.value)} />
-                <h4>Low-flow showerhead?</h4>
+                <h4>Does your household use a low-flow showerhead?</h4>
                 <label><input type="radio" checked={answers.lowFlow === 'yes'}
                     onChange={() => handleChange('lowFlow', 'yes')} /> Yes</label><br/>
                 <label><input type="radio" checked={answers.lowFlow === 'no'}
-                    onChange={() => handleChange('lowFlow', 'no')} /> No</label>
+                    onChange={() => handleChange('lowFlow', 'no')} /> No</label><br/>
+                    <label><input type="radio" checked={answers.lowFlow === 'unsure'}
+                    onChange={() => handleChange('lowFlow', 'unsure')} /> Unsure</label>
                 </div>
             )}
 
