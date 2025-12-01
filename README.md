@@ -3,6 +3,8 @@ Group 1: WattWise
 
 Mia McDunnah, Anushka Verma, Awo Mah, Ethan Kwan, Eric Chou
 
+## Link to Web App: https://wattwise-cd2b2.web.app/ 
+
 ## Overview
 How might we empower Washington homeowners to better understand and act on the financial savings and environmental benefits of optimizing their utility usage? 
 
