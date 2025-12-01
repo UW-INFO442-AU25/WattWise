@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProgressBar from './ProgressBar';
+import Tooltip from './Tooltip';
+import InfoIcon from './InfoIcon';
 
 
 
@@ -21,6 +23,8 @@ function computeRecs(answers) {
     console.log('Adding rec (goals: discover):', msg)
     recs.push(msg)
     }
+    
+    // Note: Tooltips for recommendations are handled in QuizResults component
 
     // bulbs + lighting
     const bulbSavingsMap = {
@@ -359,7 +363,7 @@ function computeRecs(answers) {
             {/* APPLIANCES */}
             {currentStep === 'applianceUsage' && (
                 <div>
-                <h3 className="quiz-question">How many energy-intensive appliances (like dishwashers, washing machines, dryers, air conditioners) does your household use regularly?</h3>
+                <h3 className="quiz-question">How many <Tooltip term="energy-intensive" content="Appliances that use a lot of electricity or gas, such as dishwashers, washing machines, dryers, and air conditioners. These typically consume more energy than smaller devices like phones or lamps.">energy-intensive appliances</Tooltip> does your household use regularly?</h3>
                 <div className="quiz-answer-group">
                 <label className="quiz-radio-label">
                     <input type="radio" checked={answers.applianceUsage === 'essentials'}
@@ -384,7 +388,7 @@ function computeRecs(answers) {
             {currentStep === 'phantom' && (
                 <div>
                 <h3 className="quiz-question">How often do you leave electronics and small appliances (like TVs, computers, phone chargers, coffee makers) plugged in when not in use?</h3>
-                <p className="quiz-helper-text">Note: Large appliances like refrigerators should stay plugged in.</p>
+                <p className="quiz-helper-text">Note: Large appliances like refrigerators should stay plugged in. <Tooltip term="phantom-load" content="The energy that devices use even when they're turned off but still plugged in. This 'vampire power' can add up to $100-200 per year on your electricity bill.">phantom load</Tooltip> refers to energy used by devices that are off but still plugged in.</p>
                 <div className="quiz-answer-group">
                 <label className="quiz-radio-label">
                     <input type="radio" checked={answers.phantom === 'always'}
@@ -410,31 +414,46 @@ function computeRecs(answers) {
                 <div>
                 <h3 className="quiz-question">What lighting do you use?</h3>
                 <div className="quiz-answer-group">
-                <label className="quiz-radio-label">
-                    <input type="radio" checked={answers.lighting === 'led'}
-                    onChange={() => handleChange('lighting', 'led')} />
-                    <span>LED</span>
-                </label>
-                <label className="quiz-radio-label">
-                    <input type="radio" checked={answers.lighting === 'cfl'}
-                    onChange={() => handleChange('lighting', 'cfl')} />
-                    <span>CFL</span>
-                </label>
-                <label className="quiz-radio-label">
-                    <input type="radio" checked={answers.lighting === 'incandescent'}
-                    onChange={() => handleChange('lighting', 'incandescent')} />
-                    <span>Incandescent</span>
-                </label>
-                <label className="quiz-radio-label">
-                    <input type="radio" checked={answers.lighting === 'mix'}
-                    onChange={() => handleChange('lighting', 'mix')} />
-                    <span>Mix</span>
-                </label>
-                <label className="quiz-radio-label">
-                    <input type="radio" checked={answers.lighting === 'unsure'}
-                    onChange={() => handleChange('lighting', 'unsure')} />
-                    <span>Unsure</span>
-                </label>
+                <div className="quiz-answer-item">
+                    <InfoIcon term="LED" content="LED stands for Light Emitting Diode. These are the most energy-efficient bulbs available, using up to 90% less energy than traditional bulbs and lasting 15-25 years." />
+                    <label className="quiz-radio-label">
+                        <input type="radio" checked={answers.lighting === 'led'}
+                        onChange={() => handleChange('lighting', 'led')} />
+                        <span>LED</span>
+                    </label>
+                </div>
+                <div className="quiz-answer-item">
+                    <InfoIcon term="CFL" content="CFL stands for Compact Fluorescent Lamp. These are the spiral-shaped bulbs that are more efficient than old incandescent bulbs but less efficient than LEDs. They contain a small amount of mercury." />
+                    <label className="quiz-radio-label">
+                        <input type="radio" checked={answers.lighting === 'cfl'}
+                        onChange={() => handleChange('lighting', 'cfl')} />
+                        <span>CFL</span>
+                    </label>
+                </div>
+                <div className="quiz-answer-item">
+                    <InfoIcon term="Incandescent" content="The traditional light bulbs with a filament inside. These are the least energy-efficient type of bulb and are being phased out in many places due to their high energy use." />
+                    <label className="quiz-radio-label">
+                        <input type="radio" checked={answers.lighting === 'incandescent'}
+                        onChange={() => handleChange('lighting', 'incandescent')} />
+                        <span>Incandescent</span>
+                    </label>
+                </div>
+                <div className="quiz-answer-item">
+                    <div></div>
+                    <label className="quiz-radio-label">
+                        <input type="radio" checked={answers.lighting === 'mix'}
+                        onChange={() => handleChange('lighting', 'mix')} />
+                        <span>Mix</span>
+                    </label>
+                </div>
+                <div className="quiz-answer-item">
+                    <div></div>
+                    <label className="quiz-radio-label">
+                        <input type="radio" checked={answers.lighting === 'unsure'}
+                        onChange={() => handleChange('lighting', 'unsure')} />
+                        <span>Unsure</span>
+                    </label>
+                </div>
                 </div>
                 </div>
             )}
@@ -591,7 +610,7 @@ function computeRecs(answers) {
                     onKeyDown={handleNumberKeyDown}
                     onPaste={(e) => handleNumberPaste(e, 'showerMinutes')}
                     min="0" step="1" />
-                <h4 className="quiz-subheading">Does your household use a low-flow showerhead?</h4>
+                <h4 className="quiz-subheading">Does your household use a <Tooltip term="low-flow-showerhead" content="A showerhead designed to use less water per minute (typically 1.5-2.0 gallons per minute) compared to standard showerheads (2.5+ gallons per minute). They maintain good water pressure while reducing water and energy use.">low-flow showerhead</Tooltip>?</h4>
                 <div className="quiz-answer-group">
                 <label className="quiz-radio-label">
                     <input type="radio" checked={answers.lowFlow === 'yes'}
@@ -615,7 +634,7 @@ function computeRecs(answers) {
             {/* SMART STRIPS */}
             {currentStep === 'smartPowerStrips' && (
                 <div>
-                <h3 className="quiz-question">Do you use smart power strips?</h3>
+                <h3 className="quiz-question">Do you use <Tooltip term="smart-power-strips" content="Power strips that automatically cut off power to devices when they're not in use, eliminating phantom energy waste. They can detect when devices are in standby mode and shut them off completely, saving energy and money.">smart power strips</Tooltip>?</h3>
                 <div className="quiz-answer-group">
                 <label className="quiz-radio-label">
                     <input type="radio" checked={answers.smartPowerStrips === 'yes'}

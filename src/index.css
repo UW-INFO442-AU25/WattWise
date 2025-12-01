@@ -2129,11 +2129,24 @@ nav {
     gap: 0.75rem;
 }
 
+.quiz-answer-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 3.5rem;
+}
+
+.quiz-answer-item > div:first-child:not(.quiz-radio-label) {
+    /* Spacer for answers without InfoIcon - maintains alignment */
+    width: 20px;
+    flex-shrink: 0;
+}
+
 .quiz-radio-label {
     display: flex;
     align-items: center;
     padding: 1rem 1.25rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     background: white;
     border: 2px solid #e0e8ed;
     border-radius: 8px;
@@ -2141,6 +2154,8 @@ nav {
     transition: all 0.3s ease;
     font-size: 1rem;
     color: #34495e;
+    gap: 0.5rem;
+    flex: 1;
 }
 
 .quiz-radio-label:hover {
@@ -2151,11 +2166,12 @@ nav {
 }
 
 .quiz-radio-label input[type="radio"] {
-    margin-right: 0.75rem;
+    margin-right: 0;
     width: 20px;
     height: 20px;
     cursor: pointer;
     accent-color: #6BA3C7;
+    flex-shrink: 0;
 }
 
 .quiz-radio-label:has(input[type="radio"]:checked) {
@@ -3438,6 +3454,278 @@ nav {
     }
 
     .footer-course {
+        font-size: 0.8rem;
+    }
+}
+
+/* Tooltip Styles */
+.tooltip-wrapper {
+    position: relative;
+    display: inline;
+}
+
+.tooltip-trigger {
+    border-bottom: 2px dotted #7FAFCA;
+    color: #5B8FA8;
+    cursor: help;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    display: inline;
+    position: relative;
+    z-index: 1;
+}
+
+.tooltip-trigger:hover,
+.tooltip-trigger:focus {
+    color: #4A7A9A;
+    border-bottom-color: #4A7A9A;
+    background-color: rgba(127, 175, 202, 0.1);
+    border-radius: 3px;
+    padding: 0 2px;
+    margin: 0 -2px;
+}
+
+.tooltip-trigger:active {
+    background-color: rgba(127, 175, 202, 0.15);
+}
+
+/* Special styling for tooltips inside radio labels */
+.quiz-radio-label .tooltip-trigger {
+    cursor: help;
+    pointer-events: auto;
+    /* Ensure tooltip doesn't break label layout */
+    display: inline;
+    vertical-align: baseline;
+}
+
+/* When hovering over the label, keep tooltip styling subtle */
+.quiz-radio-label:hover .tooltip-trigger {
+    background-color: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    /* Keep the dotted underline but make it more subtle */
+    border-bottom-color: rgba(107, 163, 199, 0.6);
+}
+
+/* When label is selected, adjust tooltip color */
+.quiz-radio-label:has(input[type="radio"]:checked) .tooltip-trigger {
+    color: #2c3e50;
+    border-bottom-color: #6BA3C7;
+}
+
+/* When directly hovering the tooltip trigger inside a label */
+.quiz-radio-label .tooltip-trigger:hover {
+    /* Only show subtle background on direct hover, not when hovering label */
+    background-color: rgba(127, 175, 202, 0.15) !important;
+    padding: 0 2px !important;
+    margin: 0 -2px !important;
+    border-radius: 3px;
+}
+
+.tooltip-content {
+    position: fixed;
+    background: linear-gradient(135deg, #2F3A3D 0%, #3A4A4E 100%);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-width: 280px;
+    z-index: 10000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+    animation: tooltipFadeIn 0.2s ease-out;
+}
+
+.tooltip-content::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+}
+
+.tooltip-top::before {
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: #2F3A3D;
+}
+
+.tooltip-bottom::before {
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: #2F3A3D;
+}
+
+.tooltip-left::before {
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: #2F3A3D;
+}
+
+.tooltip-right::before {
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: #2F3A3D;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .tooltip-content {
+        max-width: 90vw;
+        font-size: 0.85rem;
+        padding: 0.65rem 0.85rem;
+    }
+    
+    .tooltip-trigger {
+        border-bottom-width: 2px;
+    }
+    
+    .tooltip-trigger:active {
+        background-color: rgba(127, 175, 202, 0.2);
+    }
+}
+
+/* InfoIcon Styles */
+.info-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0.5rem;
+}
+
+.info-icon-button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #7FAFCA;
+    background: white;
+    color: #7FAFCA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: help;
+    padding: 0;
+    font-size: 0.85rem;
+    font-weight: bold;
+    font-style: italic;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.info-icon-button:hover,
+.info-icon-button:focus {
+    background: #7FAFCA;
+    color: white;
+    border-color: #6BA3C7;
+    transform: scale(1.1);
+    outline: none;
+}
+
+.info-icon-button:active {
+    transform: scale(0.95);
+}
+
+.info-icon-text {
+    line-height: 1;
+    user-select: none;
+}
+
+.info-icon-tooltip {
+    position: fixed;
+    background: linear-gradient(135deg, #2F3A3D 0%, #3A4A4E 100%);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-width: 280px;
+    z-index: 10000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+    animation: tooltipFadeIn 0.2s ease-out;
+}
+
+.info-icon-tooltip::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+}
+
+.info-icon-tooltip-right::before {
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: #2F3A3D;
+}
+
+.info-icon-tooltip-left::before {
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: #2F3A3D;
+}
+
+.info-icon-tooltip-top::before {
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: #2F3A3D;
+}
+
+.info-icon-tooltip-bottom::before {
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: #2F3A3D;
+}
+
+/* InfoIcon in quiz answer items */
+.quiz-answer-item .info-icon-wrapper {
+    margin: 0;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+.quiz-answer-item .info-icon-button {
+    width: 20px;
+    height: 20px;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+    .info-icon-tooltip {
+        max-width: 90vw;
+        font-size: 0.85rem;
+        padding: 0.65rem 0.85rem;
+    }
+    
+    .info-icon-button {
+        width: 22px;
+        height: 22px;
+        font-size: 0.9rem;
+    }
+    
+    .quiz-radio-label .info-icon-button {
+        width: 20px;
+        height: 20px;
         font-size: 0.8rem;
     }
 }

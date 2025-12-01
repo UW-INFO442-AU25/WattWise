@@ -16,8 +16,74 @@ Homeowners in Washington often lack awareness of how everyday utility behaviors�
 - Actionable checklist with progress tracking (Not Started, In Progress, Complete)
 - User authentication (email/password and Google sign-in)
 - Profile page with saved quiz results and checklist progress
-- Educational content about energy efficiency for Washington residents
+- Educational content about energy efficiency for Washington residents:
+  - Home page with information for renters and homeowners
+  - About page with team information
+  - Impact page showcasing environmental impact information
 - Responsive design for mobile and desktop
+
+## Installation & Setup
+
+### Prerequisites
+- Node.js (v16 or higher) and npm installed
+- Firebase account and project configured
+
+### Installation Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd WattWise
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Firebase Configuration**
+   - The Firebase configuration is already set up in `src/firebase.js`
+   - Ensure your Firebase project has Authentication and Firestore enabled:
+     - Authentication: Enable Email/Password and Google Sign-In providers
+     - Firestore: Create a database in production mode or test mode
+   - If you need to use a different Firebase project, update the `firebaseConfig` object in `src/firebase.js`
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+   The application will be available at `http://localhost:5173` (or the port shown in the terminal)
+
+5. **Build for production**
+   ```bash
+   npm run build
+   ```
+   This creates an optimized production build in the `dist` folder.
+
+6. **Deploy to Firebase Hosting**
+   ```bash
+   npm run deploy
+   ```
+   This builds the project and deploys it to Firebase Hosting.
+
+### Project Structure
+
+```
+WattWise/
+├── src/
+│   ├── components/       # React components (Quiz, Checklist, Navbar, etc.)
+│   ├── contexts/         # React contexts (AuthContext)
+│   ├── hooks/            # Custom React hooks
+│   ├── pages/            # Page components (Home, About, Impact, Quiz, etc.)
+│   ├── services/         # Service modules (userService)
+│   ├── App.jsx           # Main app component with routing
+│   ├── main.jsx          # Entry point
+│   └── firebase.js       # Firebase configuration
+├── public/               # Static assets (images, favicon)
+├── dist/                 # Production build output
+├── package.json          # Dependencies and scripts
+└── vite.config.js        # Vite configuration
+```
 
 ## User Personas
 
