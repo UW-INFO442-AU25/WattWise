@@ -17,12 +17,12 @@ function AboutUs() {
     {
       name: 'Awo',
       initials: 'A',
-      image: '/awo-photo.jpg' //make sure to add the image to the public folder using the same titling
+      image: '/awo-photo.jpg' 
     },
     {
       name: 'Ethan',
       initials: 'E',
-      image: 'public/ethan-photo.jpg'
+      image: '/ethan-photo.jpg'
     },
     {
       name: 'Eric',

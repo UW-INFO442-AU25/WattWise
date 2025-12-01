@@ -14,6 +14,7 @@ export const termDefinitions = {
   "phantom load": "The electricity devices use even when turned off but still plugged in. Also called 'vampire power' or 'standby power'.",
   "power strips": "A device with multiple outlets that you can turn off with one switch, helping eliminate phantom load.",
   "smart power strips": "Power strips that automatically turn off power to devices when they're not in use, saving energy.",
+  "smart strips": "Power strips that automatically turn off power to devices when they're not in use, saving energy.",
   "programmable thermostats": "A thermostat you can set to automatically change temperatures at different times of day.",
   "greenhouse gas emissions": "Gases like CO₂ that trap heat in the atmosphere and contribute to climate change.",
   "manufacturing emissions": "Carbon dioxide and other gases released during the process of making products.",
@@ -119,7 +120,7 @@ export const sustainabilityCards = [
   {
     id: "phantom-load",
     question: "What is the average annual cost of phantom load (standby power) for a typical household?",
-    answer: "Phantom load costs the average household $100–200 per year. Using smart power strips or unplugging devices can eliminate this unnecessary expense."
+    answer: "Phantom load costs the average household $100–200 per year. Unplugging devices or using smart strips can eliminate this unnecessary expense."
   },
   {
     id: "ceiling-fan",
