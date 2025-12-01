@@ -11,7 +11,8 @@ function AboutUs() {
     },
     {
       name: 'Anushka',
-      initials: 'A'
+      initials: 'A',
+      image: '/anushka-photo.jpg'
     },
     {
       name: 'Awo',
