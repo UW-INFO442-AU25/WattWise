@@ -125,16 +125,77 @@ function Checklist({ results = [], quizAnswers = {} }) {
   const [loading, setLoading] = useState(true)
   
   // Transform results into actionable items
-  const actionItems = results.map((rec, index) => ({
+  const transformedItems = results.map((rec, index) => ({
     original: rec,
     action: transformToActionItem(rec, quizAnswers),
-    index
+    originalIndex: index
   }))
+
+  // Deduplicate action items - keep only the first occurrence of each unique action
+  // Also handle semantic duplicates (e.g., "Switch to LED lightbulbs" vs "Change my X lightbulbs to LED")
+  const seenActions = new Set()
+  const actionItems = []
+  
+  // Helper function to check if two actions are semantically the same
+  const isSemanticDuplicate = (action1, action2) => {
+    const norm1 = action1.toLowerCase().trim()
+    const norm2 = action2.toLowerCase().trim()
+    
+    // Exact match
+    if (norm1 === norm2) return true
+    
+    // LED bulb duplicates: "switch to led lightbulbs" vs "change my X lightbulbs to led"
+    const ledPattern1 = /switch to led/i.test(norm1) || /switch to led/i.test(norm2)
+    const ledPattern2 = /change my \d+ lightbulbs to led/i.test(norm1) || /change my \d+ lightbulbs to led/i.test(norm2)
+    const ledPattern3 = /change my lightbulbs to led/i.test(norm1) || /change my lightbulbs to led/i.test(norm2)
+    if ((ledPattern1 && ledPattern2) || (ledPattern1 && ledPattern3)) {
+      return true
+    }
+    
+    // Low-flow showerhead duplicates
+    const showerPattern1 = /install.*low.?flow.*showerhead/i.test(norm1) || /install.*low.?flow.*showerhead/i.test(norm2)
+    const showerPattern2 = /replace.*low.?flow.*showerhead/i.test(norm1) || /replace.*low.?flow.*showerhead/i.test(norm2)
+    if (showerPattern1 && showerPattern2) {
+      return true
+    }
+    
+    return false
+  }
+  
+  transformedItems.forEach((item) => {
+    // Normalize the action for comparison (lowercase, trim)
+    const normalizedAction = item.action.toLowerCase().trim()
+    
+    // Check if this is a duplicate of any existing action
+    let isDuplicate = false
+    for (const existingItem of actionItems) {
+      if (isSemanticDuplicate(item.action, existingItem.action)) {
+        isDuplicate = true
+        // Prefer the more specific version (with numbers/details)
+        if (item.action.match(/\d+/) && !existingItem.action.match(/\d+/)) {
+          // Replace the generic one with the specific one
+          const index = actionItems.indexOf(existingItem)
+          actionItems[index] = {
+            ...item,
+            index: existingItem.index // Keep the same index
+          }
+        }
+        break
+      }
+    }
+    
+    if (!isDuplicate) {
+      actionItems.push({
+        ...item,
+        index: actionItems.length // Re-index after deduplication
+      })
+    }
+  })
 
   // Load checklist progress from Firebase
   useEffect(() => {
     const loadProgress = async () => {
-      if (!user || results.length === 0) {
+      if (!user || actionItems.length === 0) {
         setLoading(false)
         return
       }
@@ -143,12 +204,31 @@ function Checklist({ results = [], quizAnswers = {} }) {
         const progress = await getChecklistProgress(user.uid)
         if (progress) {
           // Convert old boolean format to new status format for backward compatibility
+          // Map progress by action text (new) or by index (old format for backward compatibility)
           const convertedProgress = {}
-          Object.keys(progress).forEach(key => {
-            if (typeof progress[key] === 'boolean') {
-              convertedProgress[key] = progress[key] ? 'complete' : 'not-started'
-            } else {
-              convertedProgress[key] = progress[key] || 'not-started'
+          actionItems.forEach((item, newIndex) => {
+            // Try to find status by action text first (new format)
+            const actionKey = item.action.toLowerCase().trim()
+            if (progress[actionKey] !== undefined) {
+              if (typeof progress[actionKey] === 'boolean') {
+                convertedProgress[newIndex] = progress[actionKey] ? 'complete' : 'not-started'
+              } else {
+                convertedProgress[newIndex] = progress[actionKey] || 'not-started'
+              }
+            } else if (progress[newIndex.toString()] !== undefined) {
+              // Try by new index
+              if (typeof progress[newIndex.toString()] === 'boolean') {
+                convertedProgress[newIndex] = progress[newIndex.toString()] ? 'complete' : 'not-started'
+              } else {
+                convertedProgress[newIndex] = progress[newIndex.toString()] || 'not-started'
+              }
+            } else if (progress[item.originalIndex] !== undefined) {
+              // Try by original index (backward compatibility)
+              if (typeof progress[item.originalIndex] === 'boolean') {
+                convertedProgress[newIndex] = progress[item.originalIndex] ? 'complete' : 'not-started'
+              } else {
+                convertedProgress[newIndex] = progress[item.originalIndex] || 'not-started'
+              }
             }
           })
           setItemStatuses(convertedProgress)
@@ -161,7 +241,8 @@ function Checklist({ results = [], quizAnswers = {} }) {
     }
 
     loadProgress()
-  }, [user, results])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, results.length])
 
   // Cycle through statuses: not-started → in-progress → complete → not-started
   const handleStatusChange = async (index) => {
@@ -179,7 +260,13 @@ function Checklist({ results = [], quizAnswers = {} }) {
     setItemStatuses(newStatuses)
 
     try {
-      await saveChecklistProgress(user.uid, newStatuses)
+      // Save all statuses by action text for consistency (normalized lowercase)
+      const progressToSave = {}
+      actionItems.forEach((item, idx) => {
+        const actionKey = item.action.toLowerCase().trim()
+        progressToSave[actionKey] = newStatuses[idx] || 'not-started'
+      })
+      await saveChecklistProgress(user.uid, progressToSave)
     } catch (error) {
       console.error('Error saving checklist progress:', error)
       // Revert on error

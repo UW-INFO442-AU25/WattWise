@@ -54,11 +54,19 @@ function computeRecs(answers) {
     recs.push(msg)
     }
 
-    // washer/dishwasher
+    // washer
     if (answers.washerFrequency === '4+') {
     const msg =
-        'You run laundry/dishwasher 4+ times a week — batching to 1–2 fuller loads per week can lower water and energy use.'
+        'You run your washing machine 4+ times a week — batching to 1–2 fuller loads per week can lower water and energy use.'
     console.log('Adding rec (washerFrequency):', msg)
+    recs.push(msg)
+    }
+
+    // dishwasher
+    if (answers.dishwasherFrequency === '4+') {
+    const msg =
+        'You run your dishwasher 4+ times a week — batching to 1–2 fuller loads per week can lower water and energy use.'
+    console.log('Adding rec (dishwasherFrequency):', msg)
     recs.push(msg)
     }
 
@@ -122,6 +130,7 @@ function computeRecs(answers) {
         bulbCount: '',
         ovenMinutesPerWeek: '',
         washerFrequency: '',
+        dishwasherFrequency: '',
         heatingType: '',
         showerMinutes: '',
         lowFlow: '',
@@ -140,6 +149,7 @@ function computeRecs(answers) {
         'bulbCount',
         'ovenMinutesPerWeek',
         'washerFrequency',
+        'dishwasherFrequency',
         'heatingType',
         'shower', // showerMinutes + lowFlow together
         'smartPowerStrips',
@@ -152,14 +162,58 @@ function computeRecs(answers) {
 
     const [showIntro, setShowIntro] = useState(true);
 
+    // Check if current step is answered
+    const isCurrentStepAnswered = () => {
+        if (currentStep === 'shower') {
+            // Shower step requires both showerMinutes and lowFlow
+            const hasShowerMinutes = answers.showerMinutes !== '' && answers.showerMinutes !== null && answers.showerMinutes !== undefined
+            const hasLowFlow = answers.lowFlow !== '' && answers.lowFlow !== null && answers.lowFlow !== undefined
+            return hasShowerMinutes && hasLowFlow
+        }
+        const answer = answers[currentStep]
+        // Check for empty string, null, undefined, or whitespace-only strings
+        return answer !== '' && answer !== null && answer !== undefined && String(answer).trim() !== ''
+    }
 
     const handleChange = (field, value) => {
     console.log(`Answer changed → ${field}:`, value)
     setAnswers(prev => ({ ...prev, [field]: value }))
     }
 
+    // Handle number input - prevent non-numeric keys from being typed
+    const handleNumberKeyDown = (e) => {
+        // Allow: backspace, delete, tab, escape, enter, and arrow keys
+        if ([8, 9, 27, 13, 46, 37, 38, 39, 40].indexOf(e.keyCode) !== -1 ||
+            // Allow Ctrl+A, Ctrl+C, Ctrl+X
+            (e.keyCode === 65 && e.ctrlKey === true) ||
+            (e.keyCode === 67 && e.ctrlKey === true) ||
+            (e.keyCode === 88 && e.ctrlKey === true)) {
+            return
+        }
+        // Block Ctrl+V (paste) - we'll handle it separately
+        if (e.keyCode === 86 && e.ctrlKey === true) {
+            e.preventDefault()
+            return
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault()
+        }
+    }
+
+    // Handle paste - only allow numeric characters
+    const handleNumberPaste = (e, field) => {
+        e.preventDefault()
+        const pastedText = (e.clipboardData || window.clipboardData).getData('text')
+        // Extract only numeric characters
+        const numericOnly = pastedText.replace(/[^0-9]/g, '')
+        if (numericOnly !== '') {
+            handleChange(field, numericOnly)
+        }
+    }
+
     const handleNext = () => {
-    if (currentStepIndex < steps.length - 1) {
+    if (currentStepIndex < steps.length - 1 && isCurrentStepAnswered()) {
         setCurrentStepIndex(prev => prev + 1)
     }
     }
@@ -172,6 +226,12 @@ function computeRecs(answers) {
 
     const handleSubmit = (e) => {
     e.preventDefault()
+    
+    // Ensure last step is answered before submitting
+    if (!isCurrentStepAnswered()) {
+        return
+    }
+    
     console.log('==== QUIZ SUBMITTED ====')
     console.log('Final user answers:', answers)
 
@@ -192,28 +252,30 @@ function computeRecs(answers) {
     return (
     <div style={{ maxWidth: '800px', margin: '6rem auto 3rem', padding: '1rem' }}>
         {showIntro ? (
-        <>
-            <h1 style={{ marginBottom: '0.75rem' }}>WattWise Home Efficiency Quiz</h1>
+        <div className="quiz-intro">
+            <h1 className="quiz-intro-title">WattWise Home Efficiency Quiz</h1>
 
-            <p style={{ marginBottom: '1rem', fontSize: '0.95rem', opacity: 0.85 }}>
+            <p className="quiz-intro-description">
             Answer a few quick questions about your home to discover where you can
             save the most on energy and water bills.
             </p>
 
-            <ul style={{ marginBottom: '1.5rem', fontSize: '0.9rem', paddingLeft: '1.2rem' }}>
+            <ul className="quiz-intro-features">
             <li>Takes under 3 minutes</li>
             <li>Personalized efficiency recommendations</li>
             <li>No account required</li>
             </ul>
 
+            <div className="quiz-intro-button-wrapper">
             <button
-            type="button"
-            className="cta-button"
-            onClick={() => setShowIntro(false)}
+                type="button"
+                className="quiz-intro-button"
+                onClick={() => setShowIntro(false)}
             >
-            Start Quiz
+                Start Quiz
             </button>
-        </>
+            </div>
+        </div>
         ) : (
         <>
             <h1 style={{ marginBottom: '0.5rem' }}>WattWise Home Efficiency Quiz</h1>
@@ -231,198 +293,387 @@ function computeRecs(answers) {
             </div>
 
             <form onSubmit={handleSubmit}>
+            <div className="quiz-container">
+            <div style={{ flex: '1' }}>
 
             {/* GOALS */}
             {currentStep === 'goals' && (
                 <div>
-                <h3>What are your goals?</h3>
-                <label>
+                <h3 className="quiz-question">What are your goals?</h3>
+                <div className="quiz-answer-group">
+                <label className="quiz-radio-label">
                     <input type="radio" checked={answers.goals === 'optimize'}
-                    onChange={() => handleChange('goals', 'optimize')} /> Optimize what I already use
-                </label><br/>
-                <label>
-                    <input type="radio" checked={answers.goals === 'discover'}
-                    onChange={() => handleChange('goals', 'discover')} /> Discover new solutions
+                    onChange={() => handleChange('goals', 'optimize')} />
+                    <span>Optimize what I already use</span>
                 </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.goals === 'discover'}
+                    onChange={() => handleChange('goals', 'discover')} />
+                    <span>Discover new solutions</span>
+                </label>
+                </div>
                 </div>
             )}
 
             {/* HOUSEHOLD TYPE */}
             {currentStep === 'householdType' && (
                 <div>
-                <h3>What type of household do you live in?</h3>
-                <select value={answers.householdType}
-                    onChange={e => handleChange('householdType', e.target.value)}>
-                    <option value="">Select</option>
-                    <option value="townhouse">Townhouse</option>
-                    <option value="house">House</option>
-                    <option value="condo">Condo / Apartment</option>
-                </select>
+                <h3 className="quiz-question">What type of household do you live in?</h3>
+                <div className="quiz-answer-group">
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.householdType === 'house'}
+                    onChange={() => handleChange('householdType', 'house')} />
+                    <span>House</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.householdType === 'townhouse'}
+                    onChange={() => handleChange('householdType', 'townhouse')} />
+                    <span>Townhouse</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.householdType === 'condo'}
+                    onChange={() => handleChange('householdType', 'condo')} />
+                    <span>Condo</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.householdType === 'apartment'}
+                    onChange={() => handleChange('householdType', 'apartment')} />
+                    <span>Apartment</span>
+                </label>
+                </div>
                 </div>
             )}
 
             {/* HOUSEHOLD SIZE */}
             {currentStep === 'householdSize' && (
                 <div>
-                <h3>How many people live in your household?</h3>
-                <input type="number" value={answers.householdSize}
-                    onChange={e => handleChange('householdSize', e.target.value)} />
+                <h3 className="quiz-question">How many people live in your household?</h3>
+                <input type="number" className="quiz-number-input" value={answers.householdSize}
+                    onChange={e => handleChange('householdSize', e.target.value)}
+                    onKeyDown={handleNumberKeyDown}
+                    onPaste={(e) => handleNumberPaste(e, 'householdSize')}
+                    min="1" step="1" />
                 </div>
             )}
 
             {/* APPLIANCES */}
             {currentStep === 'applianceUsage' && (
                 <div>
-                <h3>How many appliances does your household use daily?</h3>
-                <label><input type="radio" checked={answers.applianceUsage === 'essentials'}
-                    onChange={() => handleChange('applianceUsage', 'essentials')} /> Essentials only</label><br/>
-                <label><input type="radio" checked={answers.applianceUsage === 'some'}
-                    onChange={() => handleChange('applianceUsage', 'some')} /> Some</label><br/>
-                <label><input type="radio" checked={answers.applianceUsage === 'all'}
-                    onChange={() => handleChange('applianceUsage', 'all')} /> All</label>
+                <h3 className="quiz-question">How many energy-intensive appliances (like dishwashers, washing machines, dryers, air conditioners) does your household use regularly?</h3>
+                <div className="quiz-answer-group">
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.applianceUsage === 'essentials'}
+                    onChange={() => handleChange('applianceUsage', 'essentials')} />
+                    <span>Only essential appliances (refrigerator, basic heating/cooling)</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.applianceUsage === 'some'}
+                    onChange={() => handleChange('applianceUsage', 'some')} />
+                    <span>Some additional appliances (dishwasher, washer, etc.)</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.applianceUsage === 'all'}
+                    onChange={() => handleChange('applianceUsage', 'all')} />
+                    <span>Many appliances (multiple AC units, frequent use of all major appliances)</span>
+                </label>
+                </div>
                 </div>
             )}
 
             {/* PHANTOM LOAD */}
             {currentStep === 'phantom' && (
                 <div>
-                <h3>How often does your household leave devices plugged in?</h3>
-                <label><input type="radio" checked={answers.phantom === 'always'}
-                    onChange={() => handleChange('phantom', 'always')} /> Always</label><br/>
-                <label><input type="radio" checked={answers.phantom === 'sometimes'}
-                    onChange={() => handleChange('phantom', 'sometimes')} /> Sometimes</label><br/>
-                <label><input type="radio" checked={answers.phantom === 'never'}
-                    onChange={() => handleChange('phantom', 'never')} /> Never</label>
+                <h3 className="quiz-question">How often do you leave electronics and small appliances (like TVs, computers, phone chargers, coffee makers) plugged in when not in use?</h3>
+                <p className="quiz-helper-text">Note: Large appliances like refrigerators should stay plugged in.</p>
+                <div className="quiz-answer-group">
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.phantom === 'always'}
+                    onChange={() => handleChange('phantom', 'always')} />
+                    <span>Always leave them plugged in</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.phantom === 'sometimes'}
+                    onChange={() => handleChange('phantom', 'sometimes')} />
+                    <span>Sometimes unplug them</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.phantom === 'never'}
+                    onChange={() => handleChange('phantom', 'never')} />
+                    <span>Usually unplug them when not in use</span>
+                </label>
+                </div>
                 </div>
             )}
 
             {/* LIGHTING */}
             {currentStep === 'lighting' && (
                 <div>
-                <h3>What lighting do you use?</h3>
-                <label><input type="radio" checked={answers.lighting === 'led'}
-                    onChange={() => handleChange('lighting', 'led')} /> LED</label><br/>
-                <label><input type="radio" checked={answers.lighting === 'cfl'}
-                    onChange={() => handleChange('lighting', 'cfl')} /> CFL</label><br/>
-                <label><input type="radio" checked={answers.lighting === 'incandescent'}
-                    onChange={() => handleChange('lighting', 'incandescent')} /> Incandescent</label><br/>
-                <label><input type="radio" checked={answers.lighting === 'mix'}
-                    onChange={() => handleChange('lighting', 'mix')} /> Mix</label><br/>
-                <label><input type="radio" checked={answers.lighting === 'unsure'}
-                    onChange={() => handleChange('lighting', 'unsure')} /> Unsure</label>
+                <h3 className="quiz-question">What lighting do you use?</h3>
+                <div className="quiz-answer-group">
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.lighting === 'led'}
+                    onChange={() => handleChange('lighting', 'led')} />
+                    <span>LED</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.lighting === 'cfl'}
+                    onChange={() => handleChange('lighting', 'cfl')} />
+                    <span>CFL</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.lighting === 'incandescent'}
+                    onChange={() => handleChange('lighting', 'incandescent')} />
+                    <span>Incandescent</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.lighting === 'mix'}
+                    onChange={() => handleChange('lighting', 'mix')} />
+                    <span>Mix</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.lighting === 'unsure'}
+                    onChange={() => handleChange('lighting', 'unsure')} />
+                    <span>Unsure</span>
+                </label>
+                </div>
                 </div>
             )}
 
             {/* BULBS */}
             {currentStep === 'bulbCount' && (
                 <div>
-                <h3>How many light bulbs in your household are commonly used?</h3>
-                <select value={answers.bulbCount}
-                    onChange={e => handleChange('bulbCount', e.target.value)}>
-                    <option value="">Select</option>
-                    <option value="lt10">&lt;10</option>
-                    <option value="10-20">10–20</option>
-                    <option value="20-30">20–30</option>
-                    <option value="30-40">30–40</option>
-                    <option value="40+">40+</option>
-                </select>
+                <h3 className="quiz-question">How many light bulbs in your household are commonly used?</h3>
+                <div className="quiz-answer-group">
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.bulbCount === 'lt10'}
+                    onChange={() => handleChange('bulbCount', 'lt10')} />
+                    <span>Less than 10</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.bulbCount === '10-20'}
+                    onChange={() => handleChange('bulbCount', '10-20')} />
+                    <span>10–20</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.bulbCount === '20-30'}
+                    onChange={() => handleChange('bulbCount', '20-30')} />
+                    <span>20–30</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.bulbCount === '30-40'}
+                    onChange={() => handleChange('bulbCount', '30-40')} />
+                    <span>30–40</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.bulbCount === '40+'}
+                    onChange={() => handleChange('bulbCount', '40+')} />
+                    <span>40+</span>
+                </label>
+                </div>
                 </div>
             )}
 
             {/* OVEN */}
             {currentStep === 'ovenMinutesPerWeek' && (
                 <div>
-                <h3>How many minutes does your household use a kitchen oven per week?</h3>
-                <input type="number" value={answers.ovenMinutesPerWeek}
-                    onChange={e => handleChange('ovenMinutesPerWeek', e.target.value)} />
+                <h3 className="quiz-question">How many total minutes per week does your household use the kitchen oven? (Add up all cooking sessions)</h3>
+                <input type="number" className="quiz-number-input" value={answers.ovenMinutesPerWeek}
+                    onChange={e => handleChange('ovenMinutesPerWeek', e.target.value)}
+                    onKeyDown={handleNumberKeyDown}
+                    onPaste={(e) => handleNumberPaste(e, 'ovenMinutesPerWeek')}
+                    min="0" step="1" />
                 </div>
             )}
 
             {/* WASHER */}
             {currentStep === 'washerFrequency' && (
                 <div>
-                <h3>How often does your household run the laundry machine/dishwasher?</h3>
-                <label><input type="radio" checked={answers.washerFrequency === '0'}
-                    onChange={() => handleChange('washerFrequency', '0')} /> Never/Rarely</label><br/>
-                <label><input type="radio" checked={answers.washerFrequency === '1'}
-                    onChange={() => handleChange('washerFrequency', '1')} /> Once</label><br/>
-                <label><input type="radio" checked={answers.washerFrequency === '2-3'}
-                    onChange={() => handleChange('washerFrequency', '2-3')} /> 2–3 times</label><br/>
-                <label><input type="radio" checked={answers.washerFrequency === '4+'}
-                    onChange={() => handleChange('washerFrequency', '4+')} /> 4+</label>
+                <h3 className="quiz-question">How often does your household run the washing machine per week?</h3>
+                <div className="quiz-answer-group">
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.washerFrequency === '0'}
+                    onChange={() => handleChange('washerFrequency', '0')} />
+                    <span>Never/Rarely</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.washerFrequency === '1'}
+                    onChange={() => handleChange('washerFrequency', '1')} />
+                    <span>Once per week</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.washerFrequency === '2-3'}
+                    onChange={() => handleChange('washerFrequency', '2-3')} />
+                    <span>2–3 times per week</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.washerFrequency === '4+'}
+                    onChange={() => handleChange('washerFrequency', '4+')} />
+                    <span>4+ times per week</span>
+                </label>
+                </div>
+                </div>
+            )}
+
+            {/* DISHWASHER */}
+            {currentStep === 'dishwasherFrequency' && (
+                <div>
+                <h3 className="quiz-question">How often does your household run the dishwasher per week?</h3>
+                <div className="quiz-answer-group">
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.dishwasherFrequency === '0'}
+                    onChange={() => handleChange('dishwasherFrequency', '0')} />
+                    <span>Never/Rarely</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.dishwasherFrequency === '1'}
+                    onChange={() => handleChange('dishwasherFrequency', '1')} />
+                    <span>Once per week</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.dishwasherFrequency === '2-3'}
+                    onChange={() => handleChange('dishwasherFrequency', '2-3')} />
+                    <span>2–3 times per week</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.dishwasherFrequency === '4+'}
+                    onChange={() => handleChange('dishwasherFrequency', '4+')} />
+                    <span>4+ times per week</span>
+                </label>
+                </div>
                 </div>
             )}
 
             {/* HEATING */}
             {currentStep === 'heatingType' && (
                 <div>
-                <h3>What is your household's heating type?</h3>
-                <select value={answers.heatingType}
-                    onChange={e => handleChange('heatingType', e.target.value)}>
-                    <option value="">Select</option>
-                    <option value="electric">Electric</option>
-                    <option value="gas">Gas</option>
-                    <option value="heat-pump">Heat pump</option>
-                    <option value="other">Other</option>
-                    <option value="unsure">Unsure</option>
-                </select>
+                <h3 className="quiz-question">What is your household's heating type?</h3>
+                <div className="quiz-answer-group">
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.heatingType === 'electric'}
+                    onChange={() => handleChange('heatingType', 'electric')} />
+                    <span>Electric</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.heatingType === 'gas'}
+                    onChange={() => handleChange('heatingType', 'gas')} />
+                    <span>Gas</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.heatingType === 'heat-pump'}
+                    onChange={() => handleChange('heatingType', 'heat-pump')} />
+                    <span>Heat pump</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.heatingType === 'oil'}
+                    onChange={() => handleChange('heatingType', 'oil')} />
+                    <span>Oil</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.heatingType === 'propane'}
+                    onChange={() => handleChange('heatingType', 'propane')} />
+                    <span>Propane</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.heatingType === 'unsure'}
+                    onChange={() => handleChange('heatingType', 'unsure')} />
+                    <span>I'm not sure</span>
+                </label>
+                </div>
                 </div>
             )}
 
             {/* SHOWER */}
             {currentStep === 'shower' && (
                 <div>
-                <h3>How many minutes does your household use the shower each week?</h3>
-                <input type="number" value={answers.showerMinutes}
-                    onChange={e => handleChange('showerMinutes', e.target.value)} />
-                <h4>Does your household use a low-flow showerhead?</h4>
-                <label><input type="radio" checked={answers.lowFlow === 'yes'}
-                    onChange={() => handleChange('lowFlow', 'yes')} /> Yes</label><br/>
-                <label><input type="radio" checked={answers.lowFlow === 'no'}
-                    onChange={() => handleChange('lowFlow', 'no')} /> No</label><br/>
-                    <label><input type="radio" checked={answers.lowFlow === 'unsure'}
-                    onChange={() => handleChange('lowFlow', 'unsure')} /> Unsure</label>
+                <h3 className="quiz-question">How many total minutes per week does your household spend showering? (Add up all household members)</h3>
+                <input type="number" className="quiz-number-input" value={answers.showerMinutes}
+                    onChange={e => handleChange('showerMinutes', e.target.value)}
+                    onKeyDown={handleNumberKeyDown}
+                    onPaste={(e) => handleNumberPaste(e, 'showerMinutes')}
+                    min="0" step="1" />
+                <h4 className="quiz-subheading">Does your household use a low-flow showerhead?</h4>
+                <div className="quiz-answer-group">
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.lowFlow === 'yes'}
+                    onChange={() => handleChange('lowFlow', 'yes')} />
+                    <span>Yes</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.lowFlow === 'no'}
+                    onChange={() => handleChange('lowFlow', 'no')} />
+                    <span>No</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.lowFlow === 'unsure'}
+                    onChange={() => handleChange('lowFlow', 'unsure')} />
+                    <span>Unsure</span>
+                </label>
+                </div>
                 </div>
             )}
 
             {/* SMART STRIPS */}
             {currentStep === 'smartPowerStrips' && (
                 <div>
-                <h3>Do you use smart power strips?</h3>
-                <label><input type="radio" checked={answers.smartPowerStrips === 'yes'}
-                    onChange={() => handleChange('smartPowerStrips', 'yes')} /> Yes</label><br/>
-                <label><input type="radio" checked={answers.smartPowerStrips === 'no'}
-                    onChange={() => handleChange('smartPowerStrips', 'no')} /> No</label><br/>
-                <label><input type="radio" checked={answers.smartPowerStrips === 'unsure'}
-                    onChange={() => handleChange('smartPowerStrips', 'unsure')} /> Not sure</label>
+                <h3 className="quiz-question">Do you use smart power strips?</h3>
+                <div className="quiz-answer-group">
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.smartPowerStrips === 'yes'}
+                    onChange={() => handleChange('smartPowerStrips', 'yes')} />
+                    <span>Yes</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.smartPowerStrips === 'no'}
+                    onChange={() => handleChange('smartPowerStrips', 'no')} />
+                    <span>No</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.smartPowerStrips === 'unsure'}
+                    onChange={() => handleChange('smartPowerStrips', 'unsure')} />
+                    <span>Not sure</span>
+                </label>
+                </div>
                 </div>
             )}
 
             {/* ECO */}
             {currentStep === 'ecoConscious' && (
                 <div>
-                <h3>Environmental habits</h3>
-                <label><input type="radio" checked={answers.ecoConscious === 'very'}
-                    onChange={() => handleChange('ecoConscious', 'very')} /> Very</label><br/>
-                <label><input type="radio" checked={answers.ecoConscious === 'sometimes'}
-                    onChange={() => handleChange('ecoConscious', 'sometimes')} /> Sometimes</label><br/>
-                <label><input type="radio" checked={answers.ecoConscious === 'rarely'}
-                    onChange={() => handleChange('ecoConscious', 'rarely')} /> Rarely</label>
+                <h3 className="quiz-question">How often do you think about energy and water conservation in your daily habits?</h3>
+                <div className="quiz-answer-group">
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.ecoConscious === 'very'}
+                    onChange={() => handleChange('ecoConscious', 'very')} />
+                    <span>Very often - it's a regular part of my routine</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.ecoConscious === 'sometimes'}
+                    onChange={() => handleChange('ecoConscious', 'sometimes')} />
+                    <span>Sometimes - I try when I remember</span>
+                </label>
+                <label className="quiz-radio-label">
+                    <input type="radio" checked={answers.ecoConscious === 'rarely'}
+                    onChange={() => handleChange('ecoConscious', 'rarely')} />
+                    <span>Rarely - I don't think about it much</span>
+                </label>
+                </div>
                 </div>
             )}
 
+            </div>
             {/* NAV BUTTONS */}
-            <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'space-between', flexShrink: 0 }}>
                 <button type="button" className="cta-button"
                 onClick={handleBack} disabled={currentStepIndex === 0}>
                 Back
                 </button>
 
                 {isLastStep ? (
-                <button type="submit" className="cta-button">See results</button>
+                <button type="submit" className="cta-button" disabled={!isCurrentStepAnswered()}>See results</button>
                 ) : (
-                <button type="button" className="cta-button" onClick={handleNext}>Next</button>
+                <button type="button" className="cta-button" onClick={handleNext} disabled={!isCurrentStepAnswered()}>Next</button>
                 )}
+            </div>
             </div>
 
             </form>

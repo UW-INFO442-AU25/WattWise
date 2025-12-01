@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar'
 import MyProfile from '../components/MyProfile'
+import Footer from '../components/Footer'
 
 function MyProfilePage() {
   return (
@@ -8,6 +9,7 @@ function MyProfilePage() {
       <div className="profile-page-wrapper">
         <MyProfile />
       </div>
+      <Footer />
     </>
   )
 }

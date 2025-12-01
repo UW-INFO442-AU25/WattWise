@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar'
 import EnvironmentImpact from '../components/EnvironmentImpact'
 import SustainableHomeSimulator from '../components/SustainableHomeSimulator'
+import Footer from '../components/Footer'
 
 function ImpactPage() {
   return (
@@ -12,6 +13,7 @@ function ImpactPage() {
       {/* <div style={{ marginTop: '80px' }}>
         <SustainableHomeSimulator />
       </div> */}
+      <Footer />
     </>
   )
 }
