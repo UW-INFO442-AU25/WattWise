@@ -342,7 +342,7 @@ function computeRecs(answers) {
             {currentStep === 'washerFrequency' && (
                 <div>
                 <h3>How often does your household run the laundry machine/dishwasher?</h3>
-                <label><input type="radio" checked={answers.washerFrequency === '1'}
+                <label><input type="radio" checked={answers.washerFrequency === '0'}
                     onChange={() => handleChange('washerFrequency', '0')} /> Never/Rarely</label><br/>
                 <label><input type="radio" checked={answers.washerFrequency === '1'}
                     onChange={() => handleChange('washerFrequency', '1')} /> Once</label><br/>
